@@ -1,0 +1,30 @@
+# Local development database.
+#
+#   docker compose up -d
+#   npm run db:migrate
+#   npm run db:seed
+#
+# Production uses Neon PostgreSQL with the identical schema, migrations and
+# `pg` driver — only DATABASE_URL differs (docs/ARCHITECTURE.md).
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: sda-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sda
+      POSTGRES_PASSWORD: sda
+      POSTGRES_DB: system_design_academy
+    ports:
+      # Host 5433 to avoid colliding with any other local Postgres.
+      - '5433:5432'
+    volumes:
+      - sda-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U sda -d system_design_academy']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  sda-postgres-data:

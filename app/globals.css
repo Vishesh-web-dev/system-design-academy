@@ -1,0 +1,290 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/*
+  System Design Academy — the plan sheet.
+
+  Ground is blueprint slate, not tinted black: this is a drafting surface, and
+  diagrams sit on it. Long-form lesson prose is set in a serif at a measured
+  column width because the learner reads for 40 minutes at a stretch; app
+  chrome is a grotesque so the two never blur together. Every figure — QPS,
+  bytes, milliseconds, money — is set in the mono face with tabular figures,
+  because in this subject the numbers are the argument.
+*/
+
+@theme {
+  --color-ink-950: #0a0f14;
+  --color-ink-900: #0e141b;
+  --color-ink-850: #121a23;
+  --color-ink-800: #151d26;
+  --color-ink-700: #1e2833;
+  --color-ink-600: #2b3948;
+  --color-ink-500: #3d4f61;
+
+  --color-paper-50: #f4f8fb;
+  --color-paper-100: #e7edf3;
+  --color-paper-200: #cbd7e2;
+  --color-paper-400: #94a5b6;
+  --color-paper-500: #6f8194;
+
+  /* Instrument palette. Signal = progress and correctness. Alert = attention
+     required. Brass = earned/mastered. Each has exactly one meaning. */
+  --color-signal-400: #6fcdc0;
+  --color-signal-500: #4fb3a5;
+  --color-signal-600: #35897e;
+  --color-alert-400: #ef7a7c;
+  --color-alert-500: #e2585b;
+  --color-alert-600: #b8383b;
+  --color-brass-400: #ddb572;
+  --color-brass-500: #c99a4e;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.9375rem;
+  --text-4xl: 2.5rem;
+
+  --radius-sheet: 3px;
+}
+
+:root {
+  color-scheme: dark;
+  --ground: var(--color-ink-900);
+  --surface: var(--color-ink-850);
+  --surface-raised: var(--color-ink-800);
+  --rule: var(--color-ink-700);
+  --rule-strong: var(--color-ink-600);
+  --text: var(--color-paper-100);
+  --text-dim: var(--color-paper-400);
+  --text-faint: var(--color-paper-500);
+  --grid-line: rgb(255 255 255 / 0.035);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ground: #f2f5f8;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --rule: #d8e0e8;
+  --rule-strong: #b9c6d2;
+  --text: #16202b;
+  --text-dim: #4e5f70;
+  --text-faint: #6f8194;
+  --grid-line: rgb(20 35 50 / 0.05);
+}
+
+* {
+  border-color: var(--rule);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Every figure in this product is tabular. */
+.figure,
+code,
+kbd,
+pre,
+[data-numeric] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The drafting grid. Functional: it only appears behind diagrams and the
+   curriculum map, marking those surfaces as drawing surfaces. */
+.plan-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+/* ── The reading column ───────────────────────────────────────────────────
+   Lesson prose only. Set in the serif, 66ch measure, generous leading. */
+.prose-sheet {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--text);
+  max-width: 66ch;
+}
+.prose-sheet > * + * {
+  margin-top: 1.1em;
+}
+.prose-sheet h2 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin-top: 2.4em;
+  padding-top: 0.9em;
+  border-top: 1px solid var(--rule);
+}
+.prose-sheet h3 {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin-top: 1.9em;
+}
+.prose-sheet h4 {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-top: 1.6em;
+}
+.prose-sheet strong {
+  font-weight: 600;
+  color: var(--color-paper-50);
+}
+:root[data-theme='light'] .prose-sheet strong {
+  color: #000;
+}
+.prose-sheet em {
+  font-style: italic;
+}
+.prose-sheet ul,
+.prose-sheet ol {
+  padding-left: 1.35em;
+}
+.prose-sheet ul {
+  list-style: none;
+}
+.prose-sheet ul > li {
+  position: relative;
+}
+.prose-sheet ul > li::before {
+  content: '';
+  position: absolute;
+  left: -1.05em;
+  top: 0.72em;
+  width: 5px;
+  height: 1px;
+  background: var(--color-signal-600);
+}
+.prose-sheet ol {
+  list-style: decimal;
+}
+.prose-sheet li + li {
+  margin-top: 0.4em;
+}
+.prose-sheet blockquote {
+  border-left: 2px solid var(--color-signal-600);
+  padding-left: 1em;
+  color: var(--text-dim);
+  font-style: italic;
+}
+.prose-sheet code {
+  font-family: var(--font-mono);
+  font-size: 0.83em;
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.1em 0.34em;
+}
+.prose-sheet pre {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  background: var(--color-ink-950);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sheet);
+  padding: 0.95rem 1.1rem;
+  overflow-x: auto;
+  max-width: 78ch;
+}
+:root[data-theme='light'] .prose-sheet pre {
+  background: #10161d;
+  color: #e7edf3;
+}
+.prose-sheet pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+.prose-sheet table {
+  width: 100%;
+  max-width: 78ch;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+.prose-sheet th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+}
+.prose-sheet td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.6rem 0.75rem 0.6rem 0;
+  vertical-align: top;
+}
+.prose-sheet a {
+  color: var(--color-signal-400);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Syntax highlighting (rehype-highlight / highlight.js class names). */
+.hljs-keyword,
+.hljs-built_in { color: #7cc2e8; }
+.hljs-string,
+.hljs-attr { color: var(--color-signal-400); }
+.hljs-number,
+.hljs-literal { color: var(--color-brass-400); }
+.hljs-comment { color: #5c7183; font-style: italic; }
+.hljs-title,
+.hljs-title.function_ { color: #e0c8f0; }
+.hljs-type,
+.hljs-class .hljs-title { color: var(--color-brass-400); }
+.hljs-variable,
+.hljs-params { color: var(--color-paper-100); }
+
+/* Focus: always visible, never a glow. */
+:focus-visible {
+  outline: 2px solid var(--color-signal-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-signal-500) 35%, transparent);
+}
+
+/* Scrollbars stay part of the sheet. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

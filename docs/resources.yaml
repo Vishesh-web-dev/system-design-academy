@@ -1,0 +1,1998 @@
+# External reference allowlist — the ONLY place a URL may appear.
+#
+# Lesson content refers to these by `key`; a raw URL inside content/ is a
+# validation failure (content/schema.ts). Every entry below was fetched and
+# its title confirmed on `verifiedAt`. Nothing here is invented: a candidate
+# that did not return a 200 with a matching title was dropped rather than
+# replaced with a guess. No page numbers, no video timestamps — `section`
+# holds a chapter, article or repository section title only.
+#
+# Re-verify with: npx tsx scripts/verify-resources.ts
+
+resources:
+  - key: abadi-pacelc
+    type: paper
+    title: 'Consistency Tradeoffs in Modern Distributed Database System Design (PACELC)'
+    publisher: 'Daniel Abadi'
+    url: https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [pacelc, cap, latency, consistency]
+
+  - key: airflow-concepts
+    type: docs
+    title: 'DAGs'
+    publisher: 'Apache Airflow'
+    url: https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [workflows, dags, scheduling]
+
+  - key: anthropic-agent-sdk-docs
+    type: docs
+    title: 'Agent SDK overview'
+    publisher: 'Anthropic'
+    url: https://docs.claude.com/en/api/agent-sdk/overview
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agents, tool-calling, sdk]
+
+  - key: anthropic-building-effective-agents
+    type: article
+    title: 'Building Effective AI Agents'
+    publisher: 'Anthropic'
+    url: https://www.anthropic.com/engineering/building-effective-agents
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agents, workflows, agent-loops]
+
+  - key: anthropic-claude-code-agents
+    type: docs
+    title: 'Best practices for Claude Code'
+    publisher: 'Anthropic'
+    url: https://www.anthropic.com/engineering/claude-code-best-practices
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [coding-agents, agent-design]
+
+  - key: anthropic-context-engineering
+    type: article
+    title: 'Effective context engineering for AI agents'
+    publisher: 'Anthropic'
+    url: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [context-assembly, agent-memory]
+
+  - key: anthropic-contextual-retrieval
+    type: article
+    title: 'Contextual Retrieval'
+    publisher: 'Anthropic'
+    url: https://www.anthropic.com/news/contextual-retrieval
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [chunking, retrieval, hybrid-search]
+
+  - key: anthropic-mcp-announcement
+    type: article
+    title: 'Introducing the Model Context Protocol'
+    publisher: 'Anthropic'
+    url: https://www.anthropic.com/news/model-context-protocol
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [mcp, tool-calling]
+
+  - key: anthropic-prompt-caching
+    type: docs
+    title: 'Prompt caching'
+    publisher: 'Anthropic'
+    url: https://docs.claude.com/en/docs/build-with-claude/prompt-caching
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cost, latency, caching]
+
+  - key: anthropic-tool-use
+    type: docs
+    title: 'Tool use with Claude'
+    publisher: 'Anthropic'
+    url: https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tool-calling, structured-outputs]
+
+  - key: arize-phoenix-evals
+    type: docs
+    title: 'Evaluation'
+    publisher: 'Arize Phoenix'
+    url: https://arize.com/docs/phoenix/evaluation/llm-evals
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [llm-evals, observability]
+
+  - key: attention-paper
+    type: paper
+    title: 'Attention Is All You Need'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/1706.03762
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [transformers, llm]
+
+  - key: automerge-docs
+    type: docs
+    title: 'Automerge documentation'
+    publisher: 'Automerge'
+    url: https://automerge.org/docs/hello/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [crdt, collaboration, offline]
+
+  - key: aws-avoiding-fallback
+    type: article
+    title: 'Avoiding fallback in distributed systems'
+    publisher: 'Amazon Builders’ Library'
+    url: https://aws.amazon.com/builders-library/avoiding-fallback-in-distributed-systems/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [failure-modes, resilience]
+
+  - key: aws-caching-challenges
+    type: article
+    title: 'Caching challenges and strategies'
+    publisher: 'Amazon Builders’ Library'
+    url: https://aws.amazon.com/builders-library/caching-challenges-and-strategies/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, invalidation, stampede]
+
+  - key: aws-cloudfront-caching
+    type: docs
+    title: 'Caching and availability'
+    publisher: 'AWS CloudFront Developer Guide'
+    url: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ConfiguringCaching.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cdn, caching, cache-keys]
+
+  - key: aws-dynamodb-paper-usenix
+    type: paper
+    title: 'Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service'
+    publisher: 'USENIX ATC 2022'
+    url: https://www.usenix.org/system/files/atc22-elhemali.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, partitioning, availability]
+
+  - key: aws-elb-overview
+    type: docs
+    title: 'What is Elastic Load Balancing?'
+    publisher: 'AWS Elastic Load Balancing User Guide'
+    url: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [load-balancing, health-checks]
+
+  - key: aws-load-shedding
+    type: article
+    title: 'Using load shedding to avoid overload'
+    publisher: 'Amazon Builders’ Library'
+    url: https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [load-shedding, backpressure, overload]
+
+  - key: aws-s3-consistency
+    type: docs
+    title: 'What is Amazon S3?'
+    publisher: 'AWS S3 User Guide'
+    url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [blob-storage, object-storage, consistency]
+
+  - key: aws-s3-multipart
+    type: docs
+    title: 'Uploading and copying objects using multipart upload'
+    publisher: 'AWS S3 User Guide'
+    url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [blob-storage, chunking, uploads]
+
+  - key: aws-sqs-fifo
+    type: docs
+    title: 'FIFO queues'
+    publisher: 'AWS SQS Developer Guide'
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [queues, ordering, deduplication]
+
+  - key: aws-step-functions
+    type: docs
+    title: 'What is Step Functions?'
+    publisher: 'AWS'
+    url: https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [workflows, state-machines, orchestration]
+
+  - key: aws-timeouts-retries-jitter
+    type: article
+    title: 'Timeouts, retries, and backoff with jitter'
+    publisher: 'Amazon Builders’ Library'
+    url: https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [retries, timeouts, backoff, jitter]
+
+  - key: aws-well-architected-reliability
+    type: docs
+    title: 'Reliability Pillar'
+    publisher: 'AWS Well-Architected Framework'
+    url: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reliability, availability, failover]
+
+  - key: aws-workload-isolation-shuffle
+    type: article
+    title: 'Workload isolation using shuffle-sharding'
+    publisher: 'Amazon Builders’ Library'
+    url: https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [isolation, partitioning, blast-radius]
+
+  - key: bigtable-paper
+    type: paper
+    title: 'Bigtable: A Distributed Storage System for Structured Data'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/bigtable-a-distributed-storage-system-for-structured-data/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, partitioning, storage]
+
+  - key: brewer-cap-12-years
+    type: article
+    title: 'CAP Twelve Years Later: How the "Rules" Have Changed'
+    publisher: 'InfoQ / Eric Brewer'
+    url: https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cap, consistency, availability]
+
+  - key: caffeine-cache-wiki
+    type: github
+    title: 'Caffeine — Efficiency (cache eviction policies)'
+    section: 'Efficiency'
+    publisher: 'ben-manes/caffeine'
+    url: https://github.com/ben-manes/caffeine/wiki/Efficiency
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, eviction, lru]
+
+  - key: cassandra-architecture
+    type: docs
+    title: 'Architecture Overview'
+    publisher: 'Apache Cassandra'
+    url: https://cassandra.apache.org/doc/latest/cassandra/architecture/overview.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, partitioning, consistency, quorum]
+
+  - key: chain-of-thought-paper
+    type: paper
+    title: 'Chain-of-Thought Prompting Elicits Reasoning in Large Language Models'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2201.11903
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reasoning, prompting]
+
+  - key: chubby-paper
+    type: paper
+    title: 'The Chubby lock service for loosely-coupled distributed systems'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/the-chubby-lock-service-for-loosely-coupled-distributed-systems/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [distributed-locks, consensus, leases]
+
+  - key: clean-architecture-blog
+    type: blog
+    title: 'The Clean Architecture'
+    publisher: 'Robert C. Martin'
+    url: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [clean-architecture, lld, layering]
+
+  - key: colbert-paper
+    type: paper
+    title: 'ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2004.12832
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reranking, retrieval, late-interaction]
+
+  - key: consistent-hashing-karger
+    type: paper
+    title: 'Consistent Hashing and Random Trees'
+    publisher: 'Karger et al.'
+    url: https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consistent-hashing, caching, partitioning]
+
+  - key: consul-service-discovery
+    type: docs
+    title: 'Service Discovery Explained'
+    publisher: 'HashiCorp Consul'
+    url: https://developer.hashicorp.com/consul/docs/use-case/service-discovery
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [service-discovery, health-checks]
+
+  - key: crdt-tech
+    type: docs
+    title: 'About CRDTs'
+    publisher: 'crdt.tech'
+    url: https://crdt.tech/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [crdt, collaboration, eventual-consistency]
+
+  - key: dapper-paper
+    type: paper
+    title: 'Dapper, a Large-Scale Distributed Systems Tracing Infrastructure'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tracing, observability, sampling]
+
+  - key: ddia-book
+    type: book
+    title: 'Designing Data-Intensive Applications'
+    publisher: 'O''Reilly / Martin Kleppmann'
+    url: https://dataintensive.net/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [databases, distributed-systems, replication, partitioning, consistency, messaging]
+
+  - key: debezium-docs
+    type: docs
+    title: 'Debezium Documentation'
+    publisher: 'Debezium'
+    url: https://debezium.io/documentation/reference/stable/index.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cdc, event-driven, outbox]
+
+  - key: deepeval-metrics
+    type: docs
+    title: 'LLM evaluation metrics'
+    publisher: 'DeepEval'
+    url: https://deepeval.com/docs/metrics-introduction
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [llm-evals, metrics]
+
+  - key: discord-storing-billions
+    type: blog
+    title: 'How Discord Stores Billions of Messages'
+    publisher: 'Discord Blog'
+    url: https://discord.com/blog/how-discord-stores-billions-of-messages
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [partitioning, nosql, messaging]
+
+  - key: discord-trillions-messages
+    type: blog
+    title: 'How Discord Stores Trillions of Messages'
+    publisher: 'Discord Blog'
+    url: https://discord.com/blog/how-discord-stores-trillions-of-messages
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [partitioning, nosql, messaging, migration]
+
+  - key: dpr-paper
+    type: paper
+    title: 'Dense Passage Retrieval for Open-Domain Question Answering'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2004.04906
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [embeddings, retrieval, dense-retrieval]
+
+  - key: dropbox-magic-pocket
+    type: blog
+    title: 'Inside the Magic Pocket'
+    publisher: 'Dropbox Tech Blog'
+    url: https://dropbox.tech/infrastructure/inside-the-magic-pocket
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [blob-storage, erasure-coding, replication]
+
+  - key: dynamo-paper
+    type: paper
+    title: 'Dynamo: Amazon''s Highly Available Key-value Store'
+    publisher: 'SOSP 2007'
+    url: https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consistency, quorum, consistent-hashing, availability]
+
+  - key: dynamodb-best-practices
+    type: docs
+    title: 'Best practices for designing and architecting with DynamoDB'
+    publisher: 'AWS DynamoDB Developer Guide'
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, access-patterns, data-modeling]
+
+  - key: dynamodb-partition-key-design
+    type: docs
+    title: 'Best practices for designing and using partition keys effectively'
+    publisher: 'AWS DynamoDB Developer Guide'
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [partitioning, hot-partitions, nosql]
+
+  - key: elastic-bm25
+    type: blog
+    title: 'Practical BM25 — Part 2: The BM25 Algorithm and its Variables'
+    publisher: 'Elastic'
+    url: https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [bm25, search, retrieval]
+
+  - key: elasticsearch-basics
+    type: docs
+    title: 'Elastic Docs — solutions overview'
+    publisher: 'Elastic'
+    url: https://www.elastic.co/docs/get-started/introduction
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [search, indexing]
+
+  - key: enterprise-integration-patterns
+    type: book
+    title: 'Enterprise Integration Patterns: Messaging Patterns'
+    section: 'Messaging Patterns table of contents'
+    publisher: 'Hohpe & Woolf'
+    url: https://www.enterpriseintegrationpatterns.com/patterns/messaging/toc.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [messaging, queues, event-driven]
+
+  - key: envoy-architecture
+    type: docs
+    title: 'Architecture overview'
+    publisher: 'Envoy Proxy'
+    url: https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/arch_overview
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-gateway, service-discovery, load-balancing]
+
+  - key: facebook-memcache
+    type: paper
+    title: 'Scaling Memcache at Facebook'
+    publisher: 'USENIX NSDI 2013'
+    url: https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, invalidation, stampede, leases]
+
+  - key: facebook-tao
+    type: paper
+    title: 'TAO: Facebook''s Distributed Data Store for the Social Graph'
+    publisher: 'USENIX ATC 2013'
+    url: https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, graph-data, read-scaling]
+
+  - key: faiss-repo
+    type: github
+    title: 'facebookresearch/faiss'
+    publisher: 'Meta AI'
+    url: https://github.com/facebookresearch/faiss
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [vector-search, ann, embeddings]
+
+  - key: figma-livegraph
+    type: blog
+    title: 'LiveGraph: real-time data fetching at Figma'
+    publisher: 'Figma Blog'
+    url: https://www.figma.com/blog/livegraph-real-time-data-fetching-at-figma/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [realtime, subscriptions]
+
+  - key: figma-multiplayer
+    type: blog
+    title: 'How Figma''s multiplayer technology works'
+    publisher: 'Figma Blog'
+    url: https://www.figma.com/blog/how-figmas-multiplayer-technology-works/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [collaboration, crdt, realtime]
+
+  - key: firecracker-paper
+    type: paper
+    title: 'Firecracker: Lightweight Virtualization for Serverless Applications'
+    publisher: 'USENIX NSDI 2020'
+    url: https://www.usenix.org/conference/nsdi20/presentation/agache
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [isolation, sandboxing, security]
+
+  - key: fowler-circuit-breaker
+    type: article
+    title: 'Circuit Breaker'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/bliki/CircuitBreaker.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [circuit-breaker, resilience, retries]
+
+  - key: fowler-cqrs
+    type: article
+    title: 'CQRS'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/bliki/CQRS.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cqrs, event-driven, read-models]
+
+  - key: fowler-uml-distilled
+    type: book
+    title: 'UML Distilled'
+    publisher: 'Martin Fowler'
+    url: https://martinfowler.com/books/uml.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [uml, lld]
+
+  - key: gfs-paper
+    type: paper
+    title: 'The Google File System'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/the-google-file-system/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [blob-storage, replication, chunking]
+
+  - key: gof-patterns-ref
+    type: article
+    title: 'Design Patterns (Gang of Four) — overview'
+    publisher: 'Wikipedia'
+    url: https://en.wikipedia.org/wiki/Design_Patterns
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [design-patterns, lld]
+
+  - key: google-aip-errors
+    type: docs
+    title: 'AIP-193: Errors'
+    publisher: 'Google API Improvement Proposals'
+    url: https://google.aip.dev/193
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-errors, api-design]
+
+  - key: google-api-design-guide
+    type: docs
+    title: 'API Design Guide'
+    publisher: 'Google Cloud'
+    url: https://cloud.google.com/apis/design
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-design, api-contracts, resource-modeling]
+
+  - key: google-borg-paper
+    type: paper
+    title: 'Large-scale cluster management at Google with Borg'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [scheduling, operations]
+
+  - key: google-cloud-sre-error-budget
+    type: book
+    title: 'Error Budget Policy'
+    section: 'Error Budget Policy'
+    publisher: 'Google SRE Workbook'
+    url: https://sre.google/workbook/error-budget-policy/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [slo, reliability]
+
+  - key: google-photon-paper
+    type: paper
+    title: 'Photon: Fault-tolerant and Scalable Joining of Continuous Data Streams'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/photon-fault-tolerant-and-scalable-joining-of-continuous-data-streams/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [stream-processing, exactly-once, idempotency]
+
+  - key: google-sre-addressing-cascading
+    type: book
+    title: 'Addressing Cascading Failures'
+    section: 'Addressing Cascading Failures'
+    publisher: 'Google SRE Book'
+    url: https://sre.google/sre-book/addressing-cascading-failures/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [failure-modes, backpressure, retries]
+
+  - key: google-sre-book
+    type: book
+    title: 'Site Reliability Engineering'
+    publisher: 'Google'
+    url: https://sre.google/sre-book/table-of-contents/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reliability, observability, availability, operations]
+
+  - key: google-sre-handling-overload
+    type: book
+    title: 'Handling Overload'
+    section: 'Handling Overload'
+    publisher: 'Google SRE Book'
+    url: https://sre.google/sre-book/handling-overload/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [backpressure, load-shedding, rate-limiting]
+
+  - key: google-sre-slo
+    type: book
+    title: 'Service Level Objectives'
+    section: 'Service Level Objectives'
+    publisher: 'Google SRE Book'
+    url: https://sre.google/sre-book/service-level-objectives/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [slo, observability, reliability]
+
+  - key: google-sre-workbook-slo
+    type: book
+    title: 'Implementing SLOs'
+    section: 'Implementing SLOs'
+    publisher: 'Google SRE Workbook'
+    url: https://sre.google/workbook/implementing-slos/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [slo, observability, reliability]
+
+  - key: gorilla-paper
+    type: paper
+    title: 'Gorilla: Large Language Model Connected with Massive APIs'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2305.15334
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tool-calling, api-selection]
+
+  - key: graphql-best-practices
+    type: docs
+    title: 'GraphQL Best Practices'
+    publisher: 'GraphQL Foundation'
+    url: https://graphql.org/learn/best-practices/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [graphql, api-design, pagination]
+
+  - key: grpc-core-concepts
+    type: docs
+    title: 'Core concepts, architecture and lifecycle'
+    publisher: 'gRPC'
+    url: https://grpc.io/docs/what-is-grpc/core-concepts/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [grpc, rpc, protocols]
+
+  - key: grpc-deadlines
+    type: docs
+    title: 'Deadlines'
+    publisher: 'gRPC'
+    url: https://grpc.io/docs/guides/deadlines/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [timeouts, grpc, retries]
+
+  - key: grpc-guides-performance
+    type: docs
+    title: 'Performance Best Practices'
+    publisher: 'gRPC'
+    url: https://grpc.io/docs/guides/performance/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [grpc, performance, connections]
+
+  - key: high-scalability-whatsapp
+    type: article
+    title: 'The WhatsApp Architecture Facebook Bought For $19 Billion'
+    publisher: 'High Scalability'
+    url: http://highscalability.com/blog/2014/2/26/the-whatsapp-architecture-facebook-bought-for-19-billion.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [messaging, connections, scale]
+
+  - key: hnsw-paper
+    type: paper
+    title: 'Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/1603.09320
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [ann, vector-search, embeddings]
+
+  - key: hyde-paper
+    type: paper
+    title: 'Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE)'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2212.10496
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [retrieval, query-expansion, rag]
+
+  - key: jepsen-consistency
+    type: docs
+    title: 'Consistency Models'
+    publisher: 'Jepsen'
+    url: https://jepsen.io/consistency
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consistency, linearizability, causal]
+
+  - key: json-schema-spec
+    type: spec
+    title: 'JSON Schema Specification'
+    publisher: 'JSON Schema'
+    url: https://json-schema.org/specification
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-contracts, structured-outputs, validation]
+
+  - key: jump-consistent-hash
+    type: paper
+    title: 'A Fast, Minimal Memory, Consistent Hash Algorithm'
+    publisher: 'Lamping & Veach'
+    url: https://arxiv.org/abs/1406.2294
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consistent-hashing, partitioning]
+
+  - key: kafka-consumer-groups
+    type: docs
+    title: 'Consumers'
+    section: 'Consumers'
+    publisher: 'Apache Kafka Documentation'
+    url: https://kafka.apache.org/documentation/#intro_consumers
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [kafka, consumer-groups, partitioning]
+
+  - key: kafka-delivery-semantics
+    type: docs
+    title: 'Message Delivery Semantics'
+    section: 'Message Delivery Semantics'
+    publisher: 'Apache Kafka Documentation'
+    url: https://kafka.apache.org/documentation/#semantics
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [delivery-semantics, idempotency, exactly-once]
+
+  - key: kafka-design
+    type: docs
+    title: 'Design'
+    section: 'Design'
+    publisher: 'Apache Kafka Documentation'
+    url: https://kafka.apache.org/documentation/#design
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [kafka, log, messaging, partitioning]
+
+  - key: kafka-docs-root
+    type: docs
+    title: 'Apache Kafka Documentation'
+    publisher: 'Apache Kafka'
+    url: https://kafka.apache.org/documentation/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [kafka, messaging]
+
+  - key: kafka-exactly-once-confluent
+    type: blog
+    title: 'Exactly-once Semantics are Possible: Here''s How Kafka Does it'
+    publisher: 'Confluent'
+    url: https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [exactly-once, idempotency, transactions]
+
+  - key: kafka-original-paper
+    type: paper
+    title: 'Kafka: a Distributed Messaging System for Log Processing'
+    publisher: 'Kreps, Narkhede & Rao'
+    url: https://notes.stephenholiday.com/Kafka.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [kafka, log, messaging]
+
+  - key: kent-beck-tdd
+    type: article
+    title: 'Test Driven Development'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/bliki/TestDrivenDevelopment.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [testing, lld]
+
+  - key: kleppmann-redlock
+    type: blog
+    title: 'How to do distributed locking'
+    publisher: 'Martin Kleppmann'
+    url: https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [distributed-locks, fencing, leases]
+
+  - key: langgraph-concepts
+    type: docs
+    title: 'LangGraph concepts'
+    publisher: 'LangChain'
+    url: https://langchain-ai.github.io/langgraph/concepts/low_level/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [workflows, agent-state, graphs]
+
+  - key: langgraph-graph-api
+    type: docs
+    title: 'Graph API overview'
+    publisher: 'LangChain'
+    url: https://docs.langchain.com/oss/python/langgraph/graph-api
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [workflows, agent-state, checkpointing]
+
+  - key: langsmith-evaluation
+    type: docs
+    title: 'Evaluation concepts'
+    publisher: 'LangSmith'
+    url: https://docs.langchain.com/langsmith/evaluation-concepts
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [llm-evals, offline-evaluation, online-evaluation]
+
+  - key: latency-numbers
+    type: article
+    title: 'Latency Numbers Every Programmer Should Know (interactive, by year)'
+    publisher: 'Colin Scott'
+    url: https://colin-scott.github.io/personal_website/research/interactive_latency.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [estimation, latency]
+
+  - key: llm-agent-survey
+    type: paper
+    title: 'A Survey on Large Language Model based Autonomous Agents'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2308.11432
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agents, multi-agent, planning]
+
+  - key: lost-in-the-middle
+    type: paper
+    title: 'Lost in the Middle: How Language Models Use Long Contexts'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2307.03172
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [context-assembly, retrieval, long-context]
+
+  - key: maglev-paper
+    type: paper
+    title: 'Maglev: A Fast and Reliable Software Network Load Balancer'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/maglev-a-fast-and-reliable-software-network-load-balancer/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [load-balancing, consistent-hashing]
+
+  - key: mapreduce-paper
+    type: paper
+    title: 'MapReduce: Simplified Data Processing on Large Clusters'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [batch-processing, fault-tolerance]
+
+  - key: martin-fowler-event-sourcing
+    type: article
+    title: 'Event Sourcing'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/eaaDev/EventSourcing.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [event-driven, event-sourcing]
+
+  - key: martin-fowler-ledger-accounting
+    type: article
+    title: 'Patterns for Accounting'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/eaaDev/AccountingNarrative.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [payments, ledger, double-entry]
+
+  - key: martin-fowler-strangler
+    type: article
+    title: 'Strangler Fig Application'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/bliki/StranglerFigApplication.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [migration, architecture]
+
+  - key: martin-fowler-two-phase-commit
+    type: article
+    title: 'Two-Phase Commit'
+    section: 'Patterns of Distributed Systems'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/articles/patterns-of-distributed-systems/two-phase-commit.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [transactions, distributed-transactions, consensus]
+
+  - key: mcp-architecture
+    type: docs
+    title: 'Architecture overview'
+    publisher: 'Model Context Protocol'
+    url: https://modelcontextprotocol.io/docs/learn/architecture
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [mcp, architecture, trust-boundaries]
+
+  - key: mcp-intro
+    type: docs
+    title: 'What is the Model Context Protocol (MCP)?'
+    publisher: 'Model Context Protocol'
+    url: https://modelcontextprotocol.io/docs/getting-started/intro
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [mcp, tool-calling]
+
+  - key: mcp-spec
+    type: spec
+    title: 'Model Context Protocol specification'
+    publisher: 'Model Context Protocol'
+    url: https://modelcontextprotocol.io/specification/2025-06-18
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [mcp, tool-calling, interoperability]
+
+  - key: mdn-cors
+    type: docs
+    title: 'Cross-Origin Resource Sharing (CORS)'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, security, api-design]
+
+  - key: mdn-http-caching
+    type: docs
+    title: 'HTTP caching'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, cdn, http]
+
+  - key: mdn-http-overview
+    type: docs
+    title: 'An overview of HTTP'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, request-lifecycle]
+
+  - key: mdn-http-status
+    type: docs
+    title: 'HTTP response status codes'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-errors, http, status-codes]
+
+  - key: mdn-sse
+    type: docs
+    title: 'Using server-sent events'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [realtime, sse]
+
+  - key: mdn-websockets-api
+    type: docs
+    title: 'The WebSocket API'
+    publisher: 'MDN'
+    url: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [websockets, realtime]
+
+  - key: mem-gpt-paper
+    type: paper
+    title: 'MemGPT: Towards LLMs as Operating Systems'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2310.08560
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agent-memory, context-management]
+
+  - key: microservices-outbox
+    type: article
+    title: 'Pattern: Transactional outbox'
+    publisher: 'microservices.io'
+    url: https://microservices.io/patterns/data/transactional-outbox.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [outbox, dual-write, event-driven]
+
+  - key: microservices-saga
+    type: article
+    title: 'Pattern: Saga'
+    publisher: 'microservices.io'
+    url: https://microservices.io/patterns/data/saga.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [saga, distributed-transactions, compensation]
+
+  - key: mongodb-data-modeling
+    type: docs
+    title: 'Data Modeling in MongoDB'
+    publisher: 'MongoDB'
+    url: https://www.mongodb.com/docs/manual/data-modeling/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, data-modeling, denormalization]
+
+  - key: netflix-open-connect
+    type: docs
+    title: 'Netflix Open Connect'
+    publisher: 'Netflix'
+    url: https://openconnect.netflix.com/en/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [cdn, streaming, edge]
+
+  - key: nginx-load-balancing
+    type: docs
+    title: 'Using nginx as HTTP load balancer'
+    publisher: 'nginx'
+    url: https://nginx.org/en/docs/http/load_balancing.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [load-balancing, reverse-proxy]
+
+  - key: nginx-reverse-proxy
+    type: docs
+    title: 'NGINX Reverse Proxy'
+    publisher: 'NGINX Documentation'
+    url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reverse-proxy, load-balancing]
+
+  - key: nist-ai-rmf
+    type: docs
+    title: 'AI Risk Management Framework'
+    publisher: 'NIST'
+    url: https://www.nist.gov/itl/ai-risk-management-framework
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [ai-security, governance, risk]
+
+  - key: oidc-core
+    type: spec
+    title: 'OpenID Connect Core 1.0'
+    publisher: 'OpenID Foundation'
+    url: https://openid.net/specs/openid-connect-core-1_0.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [oauth, authentication, oidc]
+
+  - key: openai-agents-guide
+    type: docs
+    title: 'Agents SDK'
+    publisher: 'OpenAI'
+    url: https://platform.openai.com/docs/guides/agents
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agents, tool-calling]
+
+  - key: openai-embeddings-guide
+    type: docs
+    title: 'Vector embeddings'
+    publisher: 'OpenAI'
+    url: https://platform.openai.com/docs/guides/embeddings
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [embeddings, vector-search]
+
+  - key: openai-evals-repo
+    type: github
+    title: 'openai/evals'
+    publisher: 'OpenAI'
+    url: https://github.com/openai/evals
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [evaluation, llm-evals]
+
+  - key: openai-function-calling
+    type: docs
+    title: 'Function calling'
+    publisher: 'OpenAI'
+    url: https://platform.openai.com/docs/guides/function-calling
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tool-calling, structured-outputs]
+
+  - key: openai-structured-outputs
+    type: docs
+    title: 'Structured model outputs'
+    publisher: 'OpenAI'
+    url: https://platform.openai.com/docs/guides/structured-outputs
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [structured-outputs, json-schema]
+
+  - key: openapi-spec
+    type: spec
+    title: 'OpenAPI Specification v3.2.0'
+    publisher: 'OpenAPI Initiative'
+    url: https://spec.openapis.org/oas/latest.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-contracts, api-design]
+
+  - key: opentelemetry-docs
+    type: docs
+    title: 'Traces'
+    publisher: 'OpenTelemetry'
+    url: https://opentelemetry.io/docs/concepts/signals/traces/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tracing, observability]
+
+  - key: otel-logs
+    type: docs
+    title: 'Logs'
+    publisher: 'OpenTelemetry'
+    url: https://opentelemetry.io/docs/concepts/signals/logs/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [logging, observability]
+
+  - key: otel-metrics
+    type: docs
+    title: 'Metrics'
+    publisher: 'OpenTelemetry'
+    url: https://opentelemetry.io/docs/concepts/signals/metrics/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [metrics, observability]
+
+  - key: owasp-auth-cheatsheet
+    type: docs
+    title: 'Authentication Cheat Sheet'
+    publisher: 'OWASP'
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [authentication, security]
+
+  - key: owasp-llm-top10
+    type: docs
+    title: 'OWASP Top 10 for Large Language Model Applications'
+    publisher: 'OWASP'
+    url: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [prompt-injection, ai-security, tool-authorization]
+
+  - key: owasp-session-cheatsheet
+    type: docs
+    title: 'Session Management Cheat Sheet'
+    publisher: 'OWASP'
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [sessions, authentication, security]
+
+  - key: patterns-distributed-systems
+    type: article
+    title: 'Patterns of Distributed Systems'
+    publisher: 'martinfowler.com'
+    url: https://martinfowler.com/articles/patterns-of-distributed-systems/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [distributed-systems, consensus, replication, leases]
+
+  - key: paypal-idempotency
+    type: docs
+    title: 'Idempotency'
+    publisher: 'PayPal Developer'
+    url: https://developer.paypal.com/api/rest/reference/idempotency/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [idempotency, payments]
+
+  - key: percolator-paper
+    type: paper
+    title: 'Large-scale Incremental Processing Using Distributed Transactions and Notifications'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/large-scale-incremental-processing-using-distributed-transactions-and-notifications/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [distributed-transactions, indexing]
+
+  - key: pgvector-repo
+    type: github
+    title: 'pgvector/pgvector'
+    publisher: 'pgvector'
+    url: https://github.com/pgvector/pgvector
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [vector-search, postgres, embeddings]
+
+  - key: pinecone-rerankers
+    type: docs
+    title: 'Rerank results'
+    publisher: 'Pinecone'
+    url: https://docs.pinecone.io/guides/search/rerank-results
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [reranking, retrieval]
+
+  - key: postgres-explain
+    type: docs
+    title: 'Using EXPLAIN'
+    section: 'Using EXPLAIN'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/using-explain.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [query-performance, indexes]
+
+  - key: postgres-explicit-locking
+    type: docs
+    title: 'Explicit Locking'
+    section: 'Explicit Locking'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/explicit-locking.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [locks, transactions, concurrency]
+
+  - key: postgres-full-text-search
+    type: docs
+    title: 'Full Text Search — Introduction'
+    section: 'Full Text Search'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/textsearch-intro.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [search, indexes, bm25]
+
+  - key: postgres-index-types
+    type: docs
+    title: 'Index Types'
+    section: 'Index Types'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/indexes-types.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [indexes, btree, query-performance]
+
+  - key: postgres-indexes
+    type: docs
+    title: 'Chapter 11. Indexes'
+    section: 'Indexes'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/indexes.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [indexes, query-performance, databases]
+
+  - key: postgres-json
+    type: docs
+    title: 'JSON Types'
+    section: 'JSON Types'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/datatype-json.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [nosql, denormalization, databases]
+
+  - key: postgres-mvcc
+    type: docs
+    title: 'Concurrency Control — Introduction'
+    section: 'Concurrency Control'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/mvcc-intro.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [transactions, mvcc, isolation]
+
+  - key: postgres-partitioning
+    type: docs
+    title: 'Table Partitioning'
+    section: 'Table Partitioning'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/ddl-partitioning.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [partitioning, databases]
+
+  - key: postgres-replication
+    type: docs
+    title: 'High Availability, Load Balancing, and Replication'
+    section: 'High Availability, Load Balancing, and Replication'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/high-availability.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [replication, failover, availability]
+
+  - key: postgres-transaction-iso
+    type: docs
+    title: 'Transaction Isolation'
+    section: 'Transaction Isolation'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/transaction-iso.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [transactions, isolation, acid]
+
+  - key: postgres-vacuum
+    type: docs
+    title: 'Routine Vacuuming'
+    section: 'Routine Vacuuming'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/routine-vacuuming.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [mvcc, operations, databases]
+
+  - key: prometheus-histograms
+    type: docs
+    title: 'Histograms and summaries'
+    publisher: 'Prometheus'
+    url: https://prometheus.io/docs/practices/histograms/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [metrics, percentiles, observability]
+
+  - key: promptfoo-docs
+    type: docs
+    title: 'Promptfoo introduction'
+    publisher: 'Promptfoo'
+    url: https://www.promptfoo.dev/docs/intro/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [llm-evals, regression-testing]
+
+  - key: protobuf-proto3
+    type: docs
+    title: 'Language Guide (proto 3)'
+    publisher: 'Protocol Buffers'
+    url: https://protobuf.dev/programming-guides/proto3/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [serialization, api-contracts, versioning]
+
+  - key: python-lru-cache-docs
+    type: docs
+    title: 'functools — lru_cache'
+    section: 'functools.lru_cache'
+    publisher: 'Python Standard Library'
+    url: https://docs.python.org/3/library/functools.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, lru, memoisation]
+
+  - key: qdrant-hybrid-queries
+    type: docs
+    title: 'Hybrid Queries'
+    publisher: 'Qdrant'
+    url: https://qdrant.tech/documentation/concepts/hybrid-queries/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [hybrid-search, retrieval, fusion]
+
+  - key: rabbitmq-quorum-queues
+    type: docs
+    title: 'Quorum Queues'
+    publisher: 'RabbitMQ'
+    url: https://www.rabbitmq.com/docs/quorum-queues
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [queues, replication, consensus]
+
+  - key: rabbitmq-tutorials
+    type: docs
+    title: 'AMQP 0-9-1 Model Explained'
+    publisher: 'RabbitMQ'
+    url: https://www.rabbitmq.com/tutorials/amqp-concepts
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [queues, messaging, routing]
+
+  - key: raft-paper
+    type: paper
+    title: 'In Search of an Understandable Consensus Algorithm (Raft)'
+    publisher: 'Ongaro & Ousterhout'
+    url: https://raft.github.io/raft.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consensus, leader-election, replication]
+
+  - key: raft-site
+    type: docs
+    title: 'The Raft Consensus Algorithm'
+    publisher: 'raft.github.io'
+    url: https://raft.github.io/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consensus, leader-election]
+
+  - key: rag-paper
+    type: paper
+    title: 'Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2005.11401
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [rag, retrieval]
+
+  - key: rag-survey-paper
+    type: paper
+    title: 'Retrieval-Augmented Generation for Large Language Models: A Survey'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2312.10997
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [rag, retrieval, evaluation]
+
+  - key: ragas-docs
+    type: docs
+    title: 'Metrics'
+    publisher: 'Ragas'
+    url: https://docs.ragas.io/en/stable/concepts/metrics/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [rag-evaluation, metrics]
+
+  - key: raptor-paper
+    type: paper
+    title: 'RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2401.18059
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [chunking, retrieval, hierarchical]
+
+  - key: react-agent-paper
+    type: paper
+    title: 'ReAct: Synergizing Reasoning and Acting in Language Models'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2210.03629
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [agent-loops, tool-calling, reasoning]
+
+  - key: redis-cluster-spec
+    type: docs
+    title: 'Redis cluster specification'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [redis, partitioning, hash-slots]
+
+  - key: redis-data-types
+    type: docs
+    title: 'Redis data types'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/develop/data-types/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [redis, caching, data-structures]
+
+  - key: redis-distlock
+    type: docs
+    title: 'Distributed Locks with Redis'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [distributed-locks, redis, leases]
+
+  - key: redis-expire
+    type: docs
+    title: 'EXPIRE'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/commands/expire/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [redis, ttl, caching]
+
+  - key: redis-persistence
+    type: docs
+    title: 'Redis persistence'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [redis, durability]
+
+  - key: redis-pubsub
+    type: docs
+    title: 'Redis Pub/sub'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/develop/pubsub/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [pubsub, redis, messaging]
+
+  - key: redis-streams
+    type: docs
+    title: 'Redis Streams'
+    publisher: 'Redis'
+    url: https://redis.io/docs/latest/develop/data-types/streams/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [redis, streams, messaging]
+
+  - key: refactoring-guru-patterns
+    type: article
+    title: 'The Catalog of Design Patterns'
+    publisher: 'Refactoring.Guru'
+    url: https://refactoring.guru/design-patterns/catalog
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [design-patterns, lld]
+
+  - key: refactoring-guru-solid
+    type: article
+    title: 'What''s a design pattern?'
+    publisher: 'Refactoring.Guru'
+    url: https://refactoring.guru/design-patterns/what-is-pattern
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [design-patterns, lld]
+
+  - key: rfc-5321-smtp
+    type: spec
+    title: 'RFC 5321: Simple Mail Transfer Protocol'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc5321
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [email, protocols]
+
+  - key: rfc-6455-websocket
+    type: spec
+    title: 'RFC 6455: The WebSocket Protocol'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc6455
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [websockets, realtime]
+
+  - key: rfc-6749-oauth2
+    type: spec
+    title: 'RFC 6749: The OAuth 2.0 Authorization Framework'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc6749
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [oauth, authorization]
+
+  - key: rfc-7519-jwt
+    type: spec
+    title: 'RFC 7519: JSON Web Token (JWT)'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc7519
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [jwt, authentication]
+
+  - key: rfc-7807-obsolete
+    type: spec
+    title: 'RFC 7807: Problem Details for HTTP APIs (obsoleted by RFC 9457)'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc7807
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-errors]
+
+  - key: rfc-8216-hls
+    type: spec
+    title: 'RFC 8216: HTTP Live Streaming'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc8216
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [streaming, video, abr]
+
+  - key: rfc-8446-tls13
+    type: spec
+    title: 'RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc8446
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tls, https, security]
+
+  - key: rfc-8555-acme
+    type: spec
+    title: 'RFC 8555: Automatic Certificate Management Environment (ACME)'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc8555
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tls, certificates]
+
+  - key: rfc-8725-jwt-bcp
+    type: spec
+    title: 'RFC 8725: JSON Web Token Best Current Practices'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc8725
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [jwt, authentication, security]
+
+  - key: rfc-9110-http-semantics
+    type: spec
+    title: 'RFC 9110: HTTP Semantics'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9110
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, api-design, status-codes]
+
+  - key: rfc-9111-http-caching
+    type: spec
+    title: 'RFC 9111: HTTP Caching'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9111
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [caching, cdn, http]
+
+  - key: rfc-9113-http2
+    type: spec
+    title: 'RFC 9113: HTTP/2'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9113
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, multiplexing]
+
+  - key: rfc-9114-http3
+    type: spec
+    title: 'RFC 9114: HTTP/3'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9114
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, quic, transport]
+
+  - key: rfc-9457-problem-details
+    type: spec
+    title: 'RFC 9457: Problem Details for HTTP APIs'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9457
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-errors, api-design]
+
+  - key: s2-geometry
+    type: docs
+    title: 'S2 Geometry'
+    publisher: 's2geometry.io'
+    url: http://s2geometry.io/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [geospatial, indexing]
+
+  - key: sandboxing-gvisor
+    type: docs
+    title: 'What is gVisor?'
+    publisher: 'gVisor'
+    url: https://gvisor.dev/docs/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [sandboxing, isolation, security]
+
+  - key: self-rag-paper
+    type: paper
+    title: 'Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2310.11511
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [rag, self-critique, evaluation]
+
+  - key: signal-double-ratchet
+    type: spec
+    title: 'The Double Ratchet Algorithm'
+    publisher: 'Signal'
+    url: https://signal.org/docs/specifications/doubleratchet/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [encryption, messaging, security]
+
+  - key: simhash-dedup
+    type: article
+    title: 'Locality-sensitive hashing'
+    publisher: 'Wikipedia'
+    url: https://en.wikipedia.org/wiki/Locality-sensitive_hashing
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [hashing, deduplication, similarity]
+
+  - key: simonw-prompt-injection
+    type: blog
+    title: 'Prompt injection (series)'
+    publisher: 'Simon Willison'
+    url: https://simonwillison.net/series/prompt-injection/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [prompt-injection, ai-security]
+
+  - key: slack-real-time
+    type: blog
+    title: 'Real-time Messaging'
+    publisher: 'Slack Engineering'
+    url: https://slack.engineering/real-time-messaging/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [websockets, messaging, presence]
+
+  - key: solid-uncle-bob
+    type: blog
+    title: 'Solid Relevance'
+    publisher: 'Robert C. Martin'
+    url: https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [solid, lld]
+
+  - key: spanner-paper
+    type: paper
+    title: 'Spanner: Google''s Globally-Distributed Database'
+    publisher: 'Google Research'
+    url: https://research.google/pubs/spanner-googles-globally-distributed-database-2/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [transactions, consistency, clocks]
+
+  - key: sqlite-wal
+    type: docs
+    title: 'Write-Ahead Logging'
+    publisher: 'SQLite'
+    url: https://www.sqlite.org/wal.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [write-ahead-log, durability, transactions]
+
+  - key: sre-book-distributed-consensus
+    type: book
+    title: 'Managing Critical State: Distributed Consensus for Reliability'
+    section: 'Managing Critical State'
+    publisher: 'Google SRE Book'
+    url: https://sre.google/sre-book/managing-critical-state/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [consensus, leader-election, cap]
+
+  - key: sre-book-load-balancing-dc
+    type: book
+    title: 'Load Balancing in the Datacenter'
+    section: 'Load Balancing in the Datacenter'
+    publisher: 'Google SRE Book'
+    url: https://sre.google/sre-book/load-balancing-datacenter/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [load-balancing, service-discovery]
+
+  - key: stripe-api-versioning
+    type: docs
+    title: 'API versioning'
+    publisher: 'Stripe'
+    url: https://docs.stripe.com/api/versioning
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [api-versioning, api-contracts]
+
+  - key: stripe-idempotent-requests
+    type: docs
+    title: 'Idempotent requests'
+    publisher: 'Stripe'
+    url: https://docs.stripe.com/api/idempotent_requests
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [idempotency, retries, payments]
+
+  - key: stripe-payment-intents
+    type: docs
+    title: 'The Payment Intents API'
+    publisher: 'Stripe'
+    url: https://docs.stripe.com/payments/payment-intents
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [payments, state-machines, idempotency]
+
+  - key: stripe-rate-limits
+    type: docs
+    title: 'Rate limits'
+    publisher: 'Stripe'
+    url: https://docs.stripe.com/rate-limits
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [rate-limiting, api-design]
+
+  - key: stripe-webhooks
+    type: docs
+    title: 'Receive Stripe events in your webhook endpoint'
+    publisher: 'Stripe'
+    url: https://docs.stripe.com/webhooks
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [webhooks, delivery-semantics, idempotency]
+
+  - key: swe-bench-paper
+    type: paper
+    title: 'SWE-bench: Can Language Models Resolve Real-World GitHub Issues?'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2310.06770
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [coding-agents, evaluation, benchmarks]
+
+  - key: system-design-primer
+    type: github
+    title: 'system-design-primer'
+    publisher: 'donnemartin'
+    url: https://github.com/donnemartin/system-design-primer
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [system-design, hld, caching, load-balancing, estimation]
+
+  - key: temporal-durable-execution
+    type: docs
+    title: 'Understanding Temporal'
+    publisher: 'Temporal'
+    url: https://docs.temporal.io/evaluate/understanding-temporal
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [durable-execution, workflows, checkpointing]
+
+  - key: temporal-workflows
+    type: docs
+    title: 'Temporal Workflow'
+    publisher: 'Temporal'
+    url: https://docs.temporal.io/workflows
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [workflows, determinism, replay]
+
+  - key: toolformer-paper
+    type: paper
+    title: 'Toolformer: Language Models Can Teach Themselves to Use Tools'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2302.04761
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [tool-calling, agents]
+
+  - key: tree-of-thoughts
+    type: paper
+    title: 'Tree of Thoughts: Deliberate Problem Solving with Large Language Models'
+    publisher: 'arXiv'
+    url: https://arxiv.org/abs/2305.10601
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [planning, reasoning, agents]
+
+  - key: twitter-timelines-scale
+    type: talk
+    title: 'Timelines at Scale'
+    publisher: 'InfoQ / Raffi Krikorian'
+    url: https://www.infoq.com/presentations/Twitter-Timeline-Scalability/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [fanout, feed, caching]
+
+  - key: uber-h3-docs
+    type: docs
+    title: 'H3: Hexagonal hierarchical geospatial indexing system'
+    publisher: 'Uber / h3geo.org'
+    url: https://h3geo.org/docs/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [geospatial, indexing, matching]
+
+  - key: vitess-sharding
+    type: docs
+    title: 'Sharding'
+    publisher: 'Vitess'
+    url: https://vitess.io/docs/22.0/reference/features/sharding/
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [sharding, partitioning, mysql]
+
+  - key: weaviate-hybrid-search
+    type: docs
+    title: 'Hybrid search'
+    publisher: 'Weaviate'
+    url: https://docs.weaviate.io/weaviate/search/hybrid
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [hybrid-search, retrieval, bm25]
+
+  - key: web-almanac-http
+    type: article
+    title: 'HTTP — The Web Almanac 2022'
+    publisher: 'HTTP Archive'
+    url: https://almanac.httparchive.org/en/2022/http
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [http, http-versions, adoption]
+
+  - key: whatsapp-erlang-scale
+    type: talk
+    title: 'Scaling to Millions of Simultaneous Connections'
+    publisher: 'Erlang Factory / Rick Reed'
+    url: https://www.erlang-factory.com/upload/presentations/558/efsf2012-whatsapp-scaling.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [connections, messaging, scale]
+
+  - key: xstate-statecharts
+    type: docs
+    title: 'What are state machines and statecharts?'
+    publisher: 'Stately'
+    url: https://stately.ai/docs/state-machines-and-statecharts
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [state-machines, lld]
+
+  - key: zookeeper-paper
+    type: paper
+    title: 'ZooKeeper: Wait-free coordination for Internet-scale systems'
+    publisher: 'USENIX ATC 2010'
+    url: https://www.usenix.org/legacy/event/atc10/tech/full_papers/Hunt.pdf
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [coordination, consensus, leader-election]
