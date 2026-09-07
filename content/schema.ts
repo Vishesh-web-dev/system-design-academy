@@ -30,7 +30,8 @@ const wordRange = (min: number, max: number, label: string) =>
  * they carry none of the risk the rule exists to prevent: they cannot rot and
  * they cannot be an invented citation.
  */
-const RAW_URL = /https?:\/\/(?!(?:[\w-]+\.)*(?:example\.(?:com|net|org)|localhost|127\.0\.0\.1)(?:[:/]|$))/i;
+const RAW_URL =
+  /https?:\/\/(?!(?:[\w-]+\.)*(?:example\.(?:com|net|org)|127\.0\.0\.1)(?:[:/]|$)|(?:[\w-]+\.)*(?:test|example|invalid|localhost)(?:[:/]|$))/i;
 const noRawUrl = z
   .string()
   .refine((s) => !RAW_URL.test(s), 'raw external URLs are not allowed in content; use a resource key');

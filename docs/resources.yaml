@@ -1996,3 +1996,58 @@ resources:
     verified: true
     verifiedAt: '2026-09-05'
     topics: [coordination, consensus, leader-election]
+
+  - key: birthday-problem
+    type: article
+    title: 'Birthday problem'
+    publisher: 'Wikipedia'
+    url: https://en.wikipedia.org/wiki/Birthday_problem
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, hashing, probability]
+
+  - key: fpe-nist-sp800-38g
+    type: spec
+    title: 'SP 800-38G: Recommendation for Block Cipher Modes of Operation — Methods for Format-Preserving Encryption'
+    publisher: 'NIST'
+    url: https://csrc.nist.gov/pubs/sp/800/38/g/final
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, encryption, security]
+
+  - key: postgres-sequences
+    type: docs
+    title: 'CREATE SEQUENCE'
+    publisher: 'PostgreSQL Documentation'
+    url: https://www.postgresql.org/docs/current/sql-createsequence.html
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, databases]
+
+  - key: snowflake-id-overview
+    type: article
+    title: 'Snowflake ID'
+    publisher: 'Wikipedia'
+    url: https://en.wikipedia.org/wiki/Snowflake_ID
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, partitioning, clocks]
+
+  - key: snowflake-repo
+    type: github
+    title: 'twitter-archive/snowflake'
+    section: 'README'
+    publisher: 'Twitter (archived)'
+    url: https://github.com/twitter-archive/snowflake
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, partitioning, clocks]
+
+  - key: uuid-rfc-9562
+    type: spec
+    title: 'RFC 9562: Universally Unique IDentifiers (UUIDs)'
+    publisher: 'IETF'
+    url: https://datatracker.ietf.org/doc/html/rfc9562
+    verified: true
+    verifiedAt: '2026-09-05'
+    topics: [id-generation, uuid]

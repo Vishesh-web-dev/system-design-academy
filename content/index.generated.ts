@@ -4,7 +4,12 @@ import type { LessonInput } from './schema';
 type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
+  'a-retrieval': () => import('./lessons/ai/a-retrieval'),
+  'f-http-versions': () => import('./lessons/foundations/f-http-versions'),
   'f-request-lifecycle': () => import('./lessons/foundations/f-request-lifecycle'),
+  'f-tcp-latency': () => import('./lessons/foundations/f-tcp-latency'),
+  'f-tls-https': () => import('./lessons/foundations/f-tls-https'),
+  'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),
 };
 
 export const lessonSlugs = Object.keys(lessonModules);
