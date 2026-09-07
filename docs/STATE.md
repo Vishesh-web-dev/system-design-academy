@@ -8,8 +8,9 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    14 of 89 lessons Complete. Phases 1 modules "networking" (6/6) and
-    "apis" (6/6) are done; "databases" (0/6) is next, then Phase 2.
+    20 of 89 lessons Complete. **Phase 1 (Foundations) is finished: 18/18.**
+    Plus the two other canonical lessons (h-url-shortener, a-retrieval).
+    Next: Phase 2 (distributed), 19 lessons, starting with d-caching.
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -28,7 +29,7 @@ progress and completion rules to be real rather than stubbed.
 | `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 14 complete, 75 planned |
+| `npm run content:validate` | PASS — 20 complete, 69 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
@@ -81,7 +82,7 @@ Append-only. Each entry is settled.
 
 ## Open issues for next run
 
-- 75 lessons remain `Planned`. Author them module by module, in curriculum
+- 69 lessons remain `Planned`. Author them module by module, in curriculum
   order. After each batch, run in this order:
   `python3 scripts/escape-content-backticks.py <new files>`, then
   `npm run content:index`, `npx tsc --noEmit`, `npm run content:validate`.
