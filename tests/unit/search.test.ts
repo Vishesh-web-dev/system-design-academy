@@ -48,6 +48,16 @@ describe('scoring', () => {
     expect(scoreDoc(doc({ title: 'Indexes' }), ['kubernetes'], 'kubernetes')).toBe(0);
   });
 
+  it('rejects a document matching fewer than half the query terms', () => {
+    // One incidental word in a long body is noise, not a result.
+    const incidental = doc({ body: 'an operator may hold the private key' });
+    expect(scoreDoc(incidental, ['kubernetes', 'operator', 'crd'], 'kubernetes operator crd')).toBe(0);
+    // Two of three clears the floor.
+    expect(
+      scoreDoc(doc({ title: 'Kubernetes operator' }), ['kubernetes', 'operator', 'crd'], 'kubernetes operator crd'),
+    ).toBeGreaterThan(0);
+  });
+
   it('gives a bonus for an exact phrase', () => {
     const phrase = scoreDoc(doc({ body: 'the idempotency key must be stored' }), ['idempotency', 'key'], 'idempotency key');
     const scattered = scoreDoc(doc({ body: 'idempotency matters; a key is needed' }), ['idempotency', 'key'], 'idempotency key');

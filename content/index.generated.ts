@@ -5,8 +5,13 @@ type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
+  'f-api-contracts': () => import('./lessons/foundations/f-api-contracts'),
+  'f-api-versioning': () => import('./lessons/foundations/f-api-versioning'),
   'f-http-versions': () => import('./lessons/foundations/f-http-versions'),
+  'f-pagination': () => import('./lessons/foundations/f-pagination'),
+  'f-realtime-transports': () => import('./lessons/foundations/f-realtime-transports'),
   'f-request-lifecycle': () => import('./lessons/foundations/f-request-lifecycle'),
+  'f-rpc-rest-grpc': () => import('./lessons/foundations/f-rpc-rest-grpc'),
   'f-tcp-latency': () => import('./lessons/foundations/f-tcp-latency'),
   'f-tls-https': () => import('./lessons/foundations/f-tls-https'),
   'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),

@@ -129,9 +129,14 @@ export function scoreDoc(doc: SearchDoc, terms: string[], phrase: string): numbe
     score += termScore;
   }
 
-  if (matched === 0) return 0;
+  // A document that matched one term out of three is noise, not a result:
+  // "kubernetes operator crd" should not surface a TLS card because the word
+  // "operator" appears in it. Require at least half the terms.
+  const required = Math.ceil(terms.length / 2);
+  if (matched < required) return 0;
 
-  // Every term present is worth much more than one term present many times.
+  // Beyond that floor, every term present is worth much more than one term
+  // present many times.
   const coverage = matched / terms.length;
   score *= 0.4 + 0.6 * coverage;
 
