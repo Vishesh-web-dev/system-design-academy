@@ -8,9 +8,12 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    20 of 89 lessons Complete. **Phase 1 (Foundations) is finished: 18/18.**
+    31 of 89 lessons Complete. **Phase 1 (Foundations) finished: 18/18.**
+    Phase 2 modules 2.1 (serving, 5/5) and 2.2 (data at scale, 5/5) finished;
+    2.3 (messaging) started with d-queues-vs-logs.
     Plus the two other canonical lessons (h-url-shortener, a-retrieval).
-    Next: Phase 2 (distributed), 19 lessons, starting with d-caching.
+    Next: d-delivery-semantics (30), d-event-driven-outbox (31),
+    d-rate-limiting (32), then module 2.4 (resilience, 33-37).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -29,7 +32,7 @@ progress and completion rules to be real rather than stubbed.
 | `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 20 complete, 69 planned |
+| `npm run content:validate` | PASS — 31 complete, 58 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
@@ -82,7 +85,7 @@ Append-only. Each entry is settled.
 
 ## Open issues for next run
 
-- 69 lessons remain `Planned`. Author them module by module, in curriculum
+- 58 lessons remain `Planned`. Author them module by module, in curriculum
   order. After each batch, run in this order:
   `python3 scripts/escape-content-backticks.py <new files>`, then
   `npm run content:index`, `npx tsc --noEmit`, `npm run content:validate`.
@@ -91,6 +94,10 @@ Append-only. Each entry is settled.
   terminates the literal and produces parse errors pointing at the wrong line.
 - Content-driven visuals for Phase 2 (M9) are authored inside each lesson as
   `flow` diagrams; there is no separate visual library to build.
+- Schema caps to respect when authoring, learned by hitting them: `revision.bullets`
+  max 18, `flashcards` max 14, `intuition.analogyLimit` max 500 characters.
+- `git` has no configured identity in this environment. Commit with
+  `git -c user.name="Vishesh Shrivastava" -c user.email="vishesh.shrivastava@rapidops.com" commit ...`
 - `docs/V1_VERIFICATION.md` and `scripts/verify-v1.ts` are not written yet (M16).
 - The live-provider interview path has not been exercised against a real key;
   record that check in `docs/V1_VERIFICATION.md` when it is.
