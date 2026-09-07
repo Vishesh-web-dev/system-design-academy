@@ -31,7 +31,7 @@ const wordRange = (min: number, max: number, label: string) =>
  * they cannot be an invented citation.
  */
 const RAW_URL =
-  /https?:\/\/(?!(?:[\w-]+\.)*(?:example\.(?:com|net|org)|127\.0\.0\.1)(?:[:/]|$)|(?:[\w-]+\.)*(?:test|example|invalid|localhost)(?:[:/]|$))/i;
+  /https?:\/\/(?!(?:[\w-]+\.)*(?:example\.(?:com|net|org)|127\.0\.0\.1)(?![\w.-])|(?:[\w-]+\.)*(?:test|example|invalid|localhost)(?![\w.-]))/i;
 const noRawUrl = z
   .string()
   .refine((s) => !RAW_URL.test(s), 'raw external URLs are not allowed in content; use a resource key');

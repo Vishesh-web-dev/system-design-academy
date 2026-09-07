@@ -38,9 +38,18 @@ describe('lesson schema', () => {
 
   it('allows RFC 2606 documentation domains inside examples', () => {
     const ok = mutate((l) => {
-      l.deepExplanation.body += '\n\n`GET https://api.example.com/v1/things` and `http://localhost:3000`.';
+      l.deepExplanation.body +=
+        '\n\n`GET https://api.example.com/v1/things`, `http://localhost:3000`, ' +
+        '`"iss": "https://auth.example.com"` and `https://svc.internal.test/path`.';
     });
     expect(Lesson.safeParse(ok).success).toBe(true);
+  });
+
+  it('still rejects a real domain that merely starts with a reserved one', () => {
+    const bad = mutate((l) => {
+      l.deepExplanation.body += '\n\nSee https://example.com.attacker-controlled.io/page.';
+    });
+    expect(errorsOf(bad).join(' ')).toMatch(/raw external URLs/);
   });
 
   it('rejects placeholder markers', () => {

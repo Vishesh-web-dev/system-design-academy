@@ -3,9 +3,13 @@
 Read this first. Resume from `NEXT`. Never revisit anything under Frozen
 decisions.
 
-    LAST_COMPLETED: 5
-    NEXT: 7
+    LAST_COMPLETED: 6
+    NEXT: 7 (content authoring in progress)
     STATUS: clean
+
+    ## Content progress
+    14 of 89 lessons Complete. Phases 1 modules "networking" (6/6) and
+    "apis" (6/6) are done; "databases" (0/6) is next, then Phase 2.
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -21,10 +25,10 @@ progress and completion rules to be real rather than stubbed.
 | --- | --- |
 | `npm run lint` | PASS |
 | `npm run typecheck` | PASS |
-| `npm test` | PASS — 93 unit tests, 5 files |
+| `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 1 complete, 88 planned |
+| `npm run content:validate` | PASS — 14 complete, 75 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
@@ -77,8 +81,13 @@ Append-only. Each entry is settled.
 
 ## Open issues for next run
 
-- 88 lessons remain `Planned`. Author them module by module, running
-  `npm run content:index && npm run content:validate` after each batch.
+- 75 lessons remain `Planned`. Author them module by module, in curriculum
+  order. After each batch, run in this order:
+  `python3 scripts/escape-content-backticks.py <new files>`, then
+  `npm run content:index`, `npx tsc --noEmit`, `npm run content:validate`.
+  The escaping step is not optional — lesson prose lives in TypeScript
+  template literals, and an unescaped backtick from an inline code span
+  terminates the literal and produces parse errors pointing at the wrong line.
 - Content-driven visuals for Phase 2 (M9) are authored inside each lesson as
   `flow` diagrams; there is no separate visual library to build.
 - `docs/V1_VERIFICATION.md` and `scripts/verify-v1.ts` are not written yet (M16).
