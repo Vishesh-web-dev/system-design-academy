@@ -5,6 +5,12 @@ type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
+  'd-caching': () => import('./lessons/distributed/d-caching'),
+  'd-cdn': () => import('./lessons/distributed/d-cdn'),
+  'd-gateways-discovery': () => import('./lessons/distributed/d-gateways-discovery'),
+  'd-load-balancing': () => import('./lessons/distributed/d-load-balancing'),
+  'd-partitioning': () => import('./lessons/distributed/d-partitioning'),
+  'd-redis': () => import('./lessons/distributed/d-redis'),
   'f-api-contracts': () => import('./lessons/foundations/f-api-contracts'),
   'f-api-errors': () => import('./lessons/foundations/f-api-errors'),
   'f-api-versioning': () => import('./lessons/foundations/f-api-versioning'),
