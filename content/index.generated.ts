@@ -5,6 +5,7 @@ type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
+  'd-backpressure': () => import('./lessons/distributed/d-backpressure'),
   'd-caching': () => import('./lessons/distributed/d-caching'),
   'd-cap-pacelc': () => import('./lessons/distributed/d-cap-pacelc'),
   'd-cdn': () => import('./lessons/distributed/d-cdn'),
@@ -14,12 +15,15 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'd-delivery-semantics': () => import('./lessons/distributed/d-delivery-semantics'),
   'd-distributed-locks': () => import('./lessons/distributed/d-distributed-locks'),
   'd-event-driven-outbox': () => import('./lessons/distributed/d-event-driven-outbox'),
+  'd-failover-availability': () => import('./lessons/distributed/d-failover-availability'),
   'd-gateways-discovery': () => import('./lessons/distributed/d-gateways-discovery'),
   'd-load-balancing': () => import('./lessons/distributed/d-load-balancing'),
+  'd-observability': () => import('./lessons/distributed/d-observability'),
   'd-partitioning': () => import('./lessons/distributed/d-partitioning'),
   'd-queues-vs-logs': () => import('./lessons/distributed/d-queues-vs-logs'),
   'd-rate-limiting': () => import('./lessons/distributed/d-rate-limiting'),
   'd-redis': () => import('./lessons/distributed/d-redis'),
+  'd-retries-timeouts': () => import('./lessons/distributed/d-retries-timeouts'),
   'f-api-contracts': () => import('./lessons/foundations/f-api-contracts'),
   'f-api-errors': () => import('./lessons/foundations/f-api-errors'),
   'f-api-versioning': () => import('./lessons/foundations/f-api-versioning'),
@@ -38,6 +42,7 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'f-tcp-latency': () => import('./lessons/foundations/f-tcp-latency'),
   'f-tls-https': () => import('./lessons/foundations/f-tls-https'),
   'f-transactions': () => import('./lessons/foundations/f-transactions'),
+  'h-framework': () => import('./lessons/hld/h-framework'),
   'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),
 };
 
