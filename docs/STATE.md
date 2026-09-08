@@ -8,15 +8,17 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    45 of 89 lessons Complete.
+    50 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
-    Module 3.2 (core designs): h-url-shortener (41, canonical), h-rate-limiter
-    (42), h-notifications (43), h-blob-storage (44) done.
+    **Phase 3 module 3.2 (core designs) finished: 8/8** — h-url-shortener (41,
+    canonical), h-rate-limiter (42), h-notifications (43), h-blob-storage (44),
+    h-google-drive (45), h-whatsapp (46), h-instagram-feed (47), h-youtube (48).
     Plus the canonical a-retrieval (Phase 5).
-    Next: h-google-drive (45), h-whatsapp (46), h-instagram-feed (47),
-    h-youtube (48), then module 3.3 (advanced designs, 49-55).
+    Module 3.3 (advanced designs): h-media-streaming (49) done.
+    Next: h-uber (50), h-google-docs (51), h-gmail (52), h-ecommerce (53),
+    h-food-delivery (54), h-payments (55), then Phase 4 LLD (56-69).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard

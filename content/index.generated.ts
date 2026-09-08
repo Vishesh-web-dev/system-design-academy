@@ -46,11 +46,14 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'h-estimation': () => import('./lessons/hld/h-estimation'),
   'h-framework': () => import('./lessons/hld/h-framework'),
   'h-google-drive': () => import('./lessons/hld/h-google-drive'),
+  'h-instagram-feed': () => import('./lessons/hld/h-instagram-feed'),
+  'h-media-streaming': () => import('./lessons/hld/h-media-streaming'),
   'h-notifications': () => import('./lessons/hld/h-notifications'),
   'h-rate-limiter': () => import('./lessons/hld/h-rate-limiter'),
   'h-requirements': () => import('./lessons/hld/h-requirements'),
   'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),
   'h-whatsapp': () => import('./lessons/hld/h-whatsapp'),
+  'h-youtube': () => import('./lessons/hld/h-youtube'),
 };
 
 export const lessonSlugs = Object.keys(lessonModules);
