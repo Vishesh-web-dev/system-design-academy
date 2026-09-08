@@ -42,8 +42,11 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'f-tcp-latency': () => import('./lessons/foundations/f-tcp-latency'),
   'f-tls-https': () => import('./lessons/foundations/f-tls-https'),
   'f-transactions': () => import('./lessons/foundations/f-transactions'),
+  'h-blob-storage': () => import('./lessons/hld/h-blob-storage'),
   'h-estimation': () => import('./lessons/hld/h-estimation'),
   'h-framework': () => import('./lessons/hld/h-framework'),
+  'h-notifications': () => import('./lessons/hld/h-notifications'),
+  'h-rate-limiter': () => import('./lessons/hld/h-rate-limiter'),
   'h-requirements': () => import('./lessons/hld/h-requirements'),
   'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),
 };

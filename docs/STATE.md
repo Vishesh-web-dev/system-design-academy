@@ -8,13 +8,15 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    40 of 89 lessons Complete.
+    45 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
-    Phase 3 (HLD) started: h-framework (38) plus the canonical h-url-shortener
-    (41). Plus the canonical a-retrieval (Phase 5).
-    Next: h-requirements (39), h-estimation (40), then module 3.2
-    (core designs, 42-48) and 3.3 (advanced designs, 49-55).
+    **Phase 3 module 3.1 (method) finished: 3/3.**
+    Module 3.2 (core designs): h-url-shortener (41, canonical), h-rate-limiter
+    (42), h-notifications (43), h-blob-storage (44) done.
+    Plus the canonical a-retrieval (Phase 5).
+    Next: h-google-drive (45), h-whatsapp (46), h-instagram-feed (47),
+    h-youtube (48), then module 3.3 (advanced designs, 49-55).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -33,7 +35,7 @@ progress and completion rules to be real rather than stubbed.
 | `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 40 complete, 49 planned |
+| `npm run content:validate` | PASS — 45 complete, 44 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
@@ -86,7 +88,7 @@ Append-only. Each entry is settled.
 
 ## Open issues for next run
 
-- 49 lessons remain `Planned`. Author them module by module, in curriculum
+- 44 lessons remain `Planned`. Author them module by module, in curriculum
   order. After each batch, run in this order:
   `python3 scripts/escape-content-backticks.py <new files>`, then
   `npm run content:index`, `npx tsc --noEmit`, `npm run content:validate`.
@@ -97,7 +99,8 @@ Append-only. Each entry is settled.
   `flow` diagrams; there is no separate visual library to build.
 - Schema caps and rules to respect when authoring, learned by hitting them:
   `revision.bullets` max 18, `flashcards` max 14, `intuition.analogyLimit` max 500
-  characters, `intuition.body` 120-480 words. Prose must not contain the words
+  characters, `intuition.body` 120-480 words, `deepExplanation.body` 650-3000 words
+  (the 90-minute design lessons run close to the ceiling — keep step sections tight). Prose must not contain the words
   TODO/FIXME/XXX/TBD/placeholder/WIP or any raw `http(s)://` URL outside the
   RFC 2606 documentation domains. Item id prefixes must be globally unique across
   lessons — `d-retries-timeouts` collided with `f-realtime-transports` on `rt-`
