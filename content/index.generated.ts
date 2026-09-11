@@ -60,6 +60,9 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'h-url-shortener': () => import('./lessons/hld/h-url-shortener'),
   'h-whatsapp': () => import('./lessons/hld/h-whatsapp'),
   'h-youtube': () => import('./lessons/hld/h-youtube'),
+  'l-lld-framework': () => import('./lessons/lld/l-lld-framework'),
+  'l-object-design': () => import('./lessons/lld/l-object-design'),
+  'l-solid': () => import('./lessons/lld/l-solid'),
 };
 
 export const lessonSlugs = Object.keys(lessonModules);

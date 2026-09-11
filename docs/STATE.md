@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    56 of 89 lessons Complete.
+    59 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -19,8 +19,10 @@ decisions.
     **Phase 3 (HLD) finished: 18/18** — module 3.3 completed with
     h-media-streaming (49), h-uber (50), h-google-docs (51), h-gmail (52),
     h-ecommerce (53), h-food-delivery (54), h-payments (55).
-    Next: Phase 4 LLD (56-69, 14 lessons), then Phase 5 AI (70-89
-    minus the canonical a-retrieval).
+    Phase 4 module 4.1 (oo-foundations): l-object-design (56), l-solid (57),
+    l-lld-framework (58) done.
+    Next: l-uml (59), l-patterns (60), then module 4.2 machine coding
+    (61-69), then Phase 5 AI (70-89 minus the canonical a-retrieval).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -110,6 +112,14 @@ Append-only. Each entry is settled.
   lessons — `d-retries-timeouts` collided with `f-realtime-transports` on `rt-`
   and was renamed to `rto-`; check with
   `grep -rho "id: 'fc-[a-z]*-" content/lessons/ | sort -u` before choosing one.
+- LLD lesson gotchas learned while authoring module 4.1: the `predict` block
+  needs its own closing `    },` before `  body:` (omitting it produces a single
+  TS1005 at the final line of the file, which is very hard to localise — the
+  fastest diagnostic is a brace-balance scan that skips string literals).
+  `intuition.analogyLimit` is capped at 500 characters. The phrase "to be
+  written" trips the PLACEHOLDER regex via `to be written`. Module ids for
+  Phase 4 are `oo-foundations` and `machine-coding` (see `content/curriculum.ts`,
+  which is the authority the validator checks against).
 - Lesson files written with the Write tool land on disk with interior backticks
   already escaped as `\``. So any later `python`/`sed` edit whose match string
   contains a backtick must escape it the same way (e.g.
