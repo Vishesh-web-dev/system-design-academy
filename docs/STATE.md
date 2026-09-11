@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    50 of 89 lessons Complete.
+    52 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -16,9 +16,10 @@ decisions.
     canonical), h-rate-limiter (42), h-notifications (43), h-blob-storage (44),
     h-google-drive (45), h-whatsapp (46), h-instagram-feed (47), h-youtube (48).
     Plus the canonical a-retrieval (Phase 5).
-    Module 3.3 (advanced designs): h-media-streaming (49) done.
-    Next: h-uber (50), h-google-docs (51), h-gmail (52), h-ecommerce (53),
-    h-food-delivery (54), h-payments (55), then Phase 4 LLD (56-69).
+    Module 3.3 (advanced designs): h-media-streaming (49), h-uber (50),
+    h-google-docs (51) done.
+    Next: h-gmail (52), h-ecommerce (53), h-food-delivery (54),
+    h-payments (55), then Phase 4 LLD (56-69).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -108,6 +109,16 @@ Append-only. Each entry is settled.
   lessons — `d-retries-timeouts` collided with `f-realtime-transports` on `rt-`
   and was renamed to `rto-`; check with
   `grep -rho "id: 'fc-[a-z]*-" content/lessons/ | sort -u` before choosing one.
+- Lesson files written with the Write tool land on disk with interior backticks
+  already escaped as `\``. So any later `python`/`sed` edit whose match string
+  contains a backtick must escape it the same way (e.g.
+  `a = a.replace('`', '\\`')` before matching), or the replacement silently
+  misses. `scripts/escape-content-backticks.py` then reports "0 line(s) escaped",
+  which is expected rather than a failure.
+- The 90-minute design lessons land 200-350 words over the 3000-word
+  `deepExplanation.body` ceiling on the first pass. Budget ~300 words per Step
+  section and condense the "N decisions worth defending" paragraphs first —
+  they trim without losing an argument.
 - `git` has no configured identity in this environment. Commit with
   `git -c user.name="Vishesh Shrivastava" -c user.email="vishesh.shrivastava@rapidops.com" commit ...`
 - `docs/V1_VERIFICATION.md` and `scripts/verify-v1.ts` are not written yet (M16).
