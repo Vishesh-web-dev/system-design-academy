@@ -4,8 +4,11 @@ import type { LessonInput } from './schema';
 type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
+  'a-chunking-indexing': () => import('./lessons/ai/a-chunking-indexing'),
+  'a-embeddings': () => import('./lessons/ai/a-embeddings'),
   'a-llm-app-architecture': () => import('./lessons/ai/a-llm-app-architecture'),
   'a-model-selection': () => import('./lessons/ai/a-model-selection'),
+  'a-rag-evaluation': () => import('./lessons/ai/a-rag-evaluation'),
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
   'a-structured-outputs': () => import('./lessons/ai/a-structured-outputs'),
   'd-backpressure': () => import('./lessons/distributed/d-backpressure'),
