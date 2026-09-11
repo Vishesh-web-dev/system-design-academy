@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    59 of 89 lessons Complete.
+    61 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -19,10 +19,10 @@ decisions.
     **Phase 3 (HLD) finished: 18/18** — module 3.3 completed with
     h-media-streaming (49), h-uber (50), h-google-docs (51), h-gmail (52),
     h-ecommerce (53), h-food-delivery (54), h-payments (55).
-    Phase 4 module 4.1 (oo-foundations): l-object-design (56), l-solid (57),
-    l-lld-framework (58) done.
-    Next: l-uml (59), l-patterns (60), then module 4.2 machine coding
-    (61-69), then Phase 5 AI (70-89 minus the canonical a-retrieval).
+    **Phase 4 module 4.1 (oo-foundations) finished: 5/5** — l-object-design
+    (56), l-solid (57), l-lld-framework (58), l-uml (59), l-patterns (60).
+    Next: module 4.2 machine coding (61-69), starting with l-lru-cache,
+    then Phase 5 AI (70-89 minus the canonical a-retrieval).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard

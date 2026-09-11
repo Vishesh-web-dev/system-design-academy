@@ -62,7 +62,9 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'h-youtube': () => import('./lessons/hld/h-youtube'),
   'l-lld-framework': () => import('./lessons/lld/l-lld-framework'),
   'l-object-design': () => import('./lessons/lld/l-object-design'),
+  'l-patterns': () => import('./lessons/lld/l-patterns'),
   'l-solid': () => import('./lessons/lld/l-solid'),
+  'l-uml': () => import('./lessons/lld/l-uml'),
 };
 
 export const lessonSlugs = Object.keys(lessonModules);
