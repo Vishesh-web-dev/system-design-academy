@@ -4,7 +4,10 @@ import type { LessonInput } from './schema';
 type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
+  'a-llm-app-architecture': () => import('./lessons/ai/a-llm-app-architecture'),
+  'a-model-selection': () => import('./lessons/ai/a-model-selection'),
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
+  'a-structured-outputs': () => import('./lessons/ai/a-structured-outputs'),
   'd-backpressure': () => import('./lessons/distributed/d-backpressure'),
   'd-caching': () => import('./lessons/distributed/d-caching'),
   'd-cap-pacelc': () => import('./lessons/distributed/d-cap-pacelc'),

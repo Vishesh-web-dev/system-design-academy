@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    70 of 89 lessons Complete.
+    73 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -25,8 +25,14 @@ decisions.
     l-lru-cache (61), l-rate-limiter-lld (62), l-logger (63),
     l-pubsub (64), l-parking-lot (65), l-splitwise (66),
     l-bookmyshow (67), l-elevator (68), l-games (69).
-    Next: Phase 5 AI (70-89; a-retrieval is already the canonical
-    lesson, so 19 remain).
+    **Phase 5 module 5.1 (llm-apps) finished: 3/3** —
+    a-llm-app-architecture (70), a-model-selection (71),
+    a-structured-outputs (72). a-retrieval (75) was already the
+    canonical lesson.
+    Next: module 5.2 retrieval — a-embeddings (73),
+    a-chunking-indexing (74), a-rag-evaluation (76) — then
+    module 5.3 agents (77-80), 5.4 workflows (81-85),
+    5.5 AI designs (86-89).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
