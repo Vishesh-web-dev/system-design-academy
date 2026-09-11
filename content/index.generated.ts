@@ -61,8 +61,12 @@ export const lessonModules: Record<string, () => Promise<LessonModule>> = {
   'h-whatsapp': () => import('./lessons/hld/h-whatsapp'),
   'h-youtube': () => import('./lessons/hld/h-youtube'),
   'l-lld-framework': () => import('./lessons/lld/l-lld-framework'),
+  'l-logger': () => import('./lessons/lld/l-logger'),
+  'l-lru-cache': () => import('./lessons/lld/l-lru-cache'),
   'l-object-design': () => import('./lessons/lld/l-object-design'),
   'l-patterns': () => import('./lessons/lld/l-patterns'),
+  'l-pubsub': () => import('./lessons/lld/l-pubsub'),
+  'l-rate-limiter-lld': () => import('./lessons/lld/l-rate-limiter-lld'),
   'l-solid': () => import('./lessons/lld/l-solid'),
   'l-uml': () => import('./lessons/lld/l-uml'),
 };
