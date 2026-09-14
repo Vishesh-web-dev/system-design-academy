@@ -4,13 +4,17 @@ import type { LessonInput } from './schema';
 type LessonModule = { default: LessonInput };
 
 export const lessonModules: Record<string, () => Promise<LessonModule>> = {
+  'a-agent-loops': () => import('./lessons/ai/a-agent-loops'),
+  'a-agent-memory': () => import('./lessons/ai/a-agent-memory'),
   'a-chunking-indexing': () => import('./lessons/ai/a-chunking-indexing'),
   'a-embeddings': () => import('./lessons/ai/a-embeddings'),
   'a-llm-app-architecture': () => import('./lessons/ai/a-llm-app-architecture'),
   'a-model-selection': () => import('./lessons/ai/a-model-selection'),
+  'a-multi-agent': () => import('./lessons/ai/a-multi-agent'),
   'a-rag-evaluation': () => import('./lessons/ai/a-rag-evaluation'),
   'a-retrieval': () => import('./lessons/ai/a-retrieval'),
   'a-structured-outputs': () => import('./lessons/ai/a-structured-outputs'),
+  'a-tool-calling': () => import('./lessons/ai/a-tool-calling'),
   'd-backpressure': () => import('./lessons/distributed/d-backpressure'),
   'd-caching': () => import('./lessons/distributed/d-caching'),
   'd-cap-pacelc': () => import('./lessons/distributed/d-cap-pacelc'),

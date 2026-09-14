@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    76 of 89 lessons Complete.
+    80 of 89 lessons Complete.
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -32,9 +32,12 @@ decisions.
     **Phase 5 module 5.2 (retrieval) finished: 4/4** —
     a-embeddings (73), a-chunking-indexing (74), a-retrieval (75,
     canonical, already authored), a-rag-evaluation (76).
-    Next: module 5.3 agents — a-tool-calling (77), a-agent-loops (78),
-    a-agent-memory (79), a-multi-agent (80) — then
-    5.4 workflows (81-85), 5.5 AI designs (86-89).
+    **Phase 5 module 5.3 (agents) finished: 4/4** —
+    a-tool-calling (77), a-agent-loops (78), a-agent-memory (79),
+    a-multi-agent (80).
+    Next: module 5.4 workflows — a-durable-execution (81), a-mcp (82),
+    a-human-in-the-loop (83), a-ai-security (84), a-ai-evaluation (85)
+    — then 5.5 AI designs (86-89).
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -53,7 +56,7 @@ progress and completion rules to be real rather than stubbed.
 | `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 76 complete, 13 planned |
+| `npm run content:validate` | PASS — 80 complete, 9 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
