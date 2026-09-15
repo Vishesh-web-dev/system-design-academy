@@ -8,7 +8,7 @@ decisions.
     STATUS: clean
 
     ## Content progress
-    85 of 89 lessons Complete.
+    **89 of 89 lessons Complete — ALL CURRICULUM CONTENT AUTHORED.**
     **Phase 1 (Foundations) finished: 18/18.**
     **Phase 2 (Distributed) finished: 19/19.**
     **Phase 3 module 3.1 (method) finished: 3/3.**
@@ -38,9 +38,12 @@ decisions.
     **Phase 5 module 5.4 (workflows, safety, evaluation) finished: 5/5** —
     a-durable-execution (81), a-mcp (82), a-human-in-the-loop (83),
     a-ai-security (84), a-ai-evaluation (85).
-    Next: module 5.5 AI system designs — a-rag-assistant (86, 90min),
-    a-support-agent (87), a-chatgpt-app (88), a-coding-agent (89).
-    These are the four 90-minute capstone designs; then V1 verification.
+    **Phase 5 module 5.5 (AI system designs) finished: 4/4** —
+    a-rag-assistant (86), a-support-agent (87), a-chatgpt-app (88),
+    a-coding-agent (89). All five phases and all 89 lessons complete.
+    Next: V1 verification — write scripts/verify-v1.ts and
+    docs/V1_VERIFICATION.md, then the remaining M8/M10-M16 UI/affordance
+    milestones and the live-provider interview-path check.
 
 Milestone 6 (spaced repetition and revision) was completed inside M5's work:
 the SM-2 scheduler, `review_items` generation from quiz misses and flashcard
@@ -59,7 +62,7 @@ progress and completion rules to be real rather than stubbed.
 | `npm test` | PASS — 95 unit tests, 5 files |
 | `npm run test:e2e` | PASS — 11 Playwright tests |
 | `npm run build` | PASS |
-| `npm run content:validate` | PASS — 85 complete, 4 planned |
+| `npm run content:validate` | PASS — 89 complete, 0 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
 
 ## Frozen decisions — DO NOT REVISIT
