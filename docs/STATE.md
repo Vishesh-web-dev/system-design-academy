@@ -3,12 +3,15 @@
 Read this first. Resume from `NEXT`. Never revisit anything under Frozen
 decisions.
 
-    LAST_COMPLETED: 16 (V1 verification)
-    NEXT: none — V1 Definition of Done fully met
-    STATUS: V1 COMPLETE — `npm run verify` passes all 17 requirements
-            (docs/V1_VERIFICATION.md, commit recorded there). All 89
-            lessons Complete; every gate green; live-provider path
-            verified against a real key.
+    LAST_COMPLETED: 16 (V1 verification) + post-V1 multi-user auth
+    NEXT: none pending
+    STATUS: V1 COMPLETE (npm run verify: 17/17). Post-V1, at the user's
+            direction, added multi-user email+password auth (custom,
+            zero new deps: scrypt + DB sessions + httpOnly cookie). All
+            learner data is now scoped to the logged-in account; real
+            users sign up their own isolated accounts. Every gate green
+            (95 unit, 13 E2E incl. auth). This reverses frozen decision
+            4 — see decision 13.
 
     ## Content progress
     **89 of 89 lessons Complete — ALL CURRICULUM CONTENT AUTHORED.**
@@ -86,6 +89,9 @@ Append-only. Each entry is settled.
    `npm run db:seed`. Learner state is never derived.
 4. **Single learner.** `learners.id = 'local'`. Every learner-state table still
    carries `learner_id` so adding auth in V2 is a data migration.
+   **SUPERSEDED (post-V1, user-directed) — see decision 13.** The `learner_id`
+   design paid off exactly as intended: adding auth was a data migration, not a
+   rewrite. `'local'` is now the seeded dev/E2E account, not the only learner.
 5. **Postgres only.** `pg` + `drizzle-orm/node-postgres`, one dialect, one
    migration system. No SQLite, no `@neondatabase/serverless`, no Edge DB layer.
 6. **Resource allowlist.** `docs/resources.yaml`, 218 entries, every one fetched
@@ -115,6 +121,25 @@ Append-only. Each entry is settled.
 12. **E2E database.** Playwright recreates `<db>_test` from empty inside its
     `webServer` command (`scripts/e2e-db.ts`), because Playwright starts the web
     server before `globalSetup`. This also proves migrations apply cleanly.
+13. **Multi-user auth (post-V1, user-directed).** Email+password, custom, zero
+    new deps. Password hashing is Node `scrypt` (`lib/auth/password.ts`, format
+    `scrypt$N$r$p$salt$hash`). Sessions are database-backed (`sessions` table,
+    migration `0002`): the cookie holds a 256-bit token, the DB stores only its
+    SHA-256, TTL 30 days, cookie `sda_session` (httpOnly, sameSite lax, secure in
+    prod). `lib/auth/session.ts` owns the lifecycle; `getLearnerId`/`getCurrentUser`
+    are React-`cache`d per request; `requireLearnerId()` redirects to `/login`.
+    The current account is resolved from the session and threaded through every
+    repo (the old `LEARNER_ID='local'` constant is gone). `middleware.ts` gates
+    all routes on cookie *presence* only (Edge-safe, no DB); the DB validation
+    and the "already logged in → /" bounce happen in the Node page layer, which
+    avoids a redirect loop. Signup is open (anyone with the URL); accounts are
+    fully isolated. Existing `'local'` data was NOT migrated to real accounts —
+    the user chose "everyone starts fresh"; `'local'` is now just the seeded
+    dev/E2E account (`local@sda.test` / `local-password-123`, overridable via
+    `DEV_ACCOUNT_EMAIL`/`DEV_ACCOUNT_PASSWORD`). E2E logs in once as it via
+    `tests/e2e/global-setup.ts` (storageState); `tests/e2e/auth.spec.ts` covers
+    protection/signup/logout. Google OAuth etc. are the natural next add (the
+    Credentials shape leaves room) but are not built.
 
 ## Open issues for next run
 

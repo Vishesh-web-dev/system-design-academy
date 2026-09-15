@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, asc, desc, eq, sql } from 'drizzle-orm';
 import { getDb, schema } from '../client';
-import { LEARNER_ID } from './learner';
+import { requireLearnerId } from '@/lib/auth/session';
 import type { InterviewSignal } from '@/lib/learning/mastery';
 
 export type MockInterviewRow = typeof schema.mockInterviews.$inferSelect;
@@ -21,7 +21,7 @@ export async function createInterview(args: {
     .insert(schema.mockInterviews)
     .values({
       id: randomUUID(),
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       mode: args.mode,
       problemKey: args.problemKey,
       companyStyle: args.companyStyle,
@@ -36,7 +36,7 @@ export async function getInterview(id: string): Promise<MockInterviewRow | undef
   const [row] = await getDb()
     .select()
     .from(schema.mockInterviews)
-    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, LEARNER_ID)));
+    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, (await requireLearnerId()))));
   return row;
 }
 
@@ -44,7 +44,7 @@ export async function listInterviews(limit = 20): Promise<MockInterviewRow[]> {
   return getDb()
     .select()
     .from(schema.mockInterviews)
-    .where(eq(schema.mockInterviews.learnerId, LEARNER_ID))
+    .where(eq(schema.mockInterviews.learnerId, (await requireLearnerId())))
     .orderBy(desc(schema.mockInterviews.startedAt))
     .limit(limit);
 }
@@ -89,14 +89,14 @@ export async function updateInterview(
   await getDb()
     .update(schema.mockInterviews)
     .set(patch)
-    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, LEARNER_ID)));
+    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, (await requireLearnerId()))));
 }
 
 export async function recordHint(id: string): Promise<void> {
   await getDb()
     .update(schema.mockInterviews)
     .set({ hintsUsed: sql`${schema.mockInterviews.hintsUsed} + 1` })
-    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, LEARNER_ID)));
+    .where(and(eq(schema.mockInterviews.id, id), eq(schema.mockInterviews.learnerId, (await requireLearnerId()))));
 }
 
 export async function saveEvaluation(args: {
@@ -142,7 +142,7 @@ export async function lastInterviewAt(): Promise<Date | null> {
     .from(schema.mockInterviews)
     .where(
       and(
-        eq(schema.mockInterviews.learnerId, LEARNER_ID),
+        eq(schema.mockInterviews.learnerId, (await requireLearnerId())),
         eq(schema.mockInterviews.status, 'complete'),
       ),
     )
@@ -167,7 +167,7 @@ export async function interviewSignals(): Promise<InterviewSignal[]> {
       schema.mockInterviews,
       eq(schema.mockInterviewEvaluations.interviewId, schema.mockInterviews.id),
     )
-    .where(eq(schema.mockInterviews.learnerId, LEARNER_ID))
+    .where(eq(schema.mockInterviews.learnerId, (await requireLearnerId())))
     .orderBy(desc(schema.mockInterviewEvaluations.createdAt));
 
   return rows.flatMap((r) =>

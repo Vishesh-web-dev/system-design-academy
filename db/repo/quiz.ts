@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, asc, desc, eq, inArray } from 'drizzle-orm';
 import { getDb, schema } from '../client';
-import { LEARNER_ID } from './learner';
+import { requireLearnerId } from '@/lib/auth/session';
 
 export type QuizQuestionRow = typeof schema.quizQuestions.$inferSelect;
 export type QuizAttemptRow = typeof schema.quizAttempts.$inferSelect;
@@ -27,7 +27,7 @@ export async function getAttempts(lessonId: string): Promise<QuizAttemptRow[]> {
     .select()
     .from(schema.quizAttempts)
     .where(
-      and(eq(schema.quizAttempts.learnerId, LEARNER_ID), eq(schema.quizAttempts.lessonId, lessonId)),
+      and(eq(schema.quizAttempts.learnerId, (await requireLearnerId())), eq(schema.quizAttempts.lessonId, lessonId)),
     )
     .orderBy(desc(schema.quizAttempts.completedAt));
 }
@@ -50,7 +50,7 @@ export async function recordAttempt(args: {
     .insert(schema.quizAttempts)
     .values({
       id: randomUUID(),
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       lessonId: args.lessonId,
       startedAt: args.startedAt,
       completedAt: new Date(),
@@ -67,7 +67,7 @@ export async function allAttempts(): Promise<QuizAttemptRow[]> {
   return getDb()
     .select()
     .from(schema.quizAttempts)
-    .where(eq(schema.quizAttempts.learnerId, LEARNER_ID))
+    .where(eq(schema.quizAttempts.learnerId, (await requireLearnerId())))
     .orderBy(desc(schema.quizAttempts.completedAt));
 }
 

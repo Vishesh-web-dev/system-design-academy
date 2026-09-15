@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, desc, eq, inArray } from 'drizzle-orm';
 import { getDb, schema } from '../client';
-import { LEARNER_ID } from './learner';
+import { requireLearnerId } from '@/lib/auth/session';
 
 export type ExerciseAttemptRow = typeof schema.exerciseAttempts.$inferSelect;
 
@@ -18,7 +18,7 @@ export async function latestAttemptsForLesson(lessonId: string) {
     .from(schema.exerciseAttempts)
     .where(
       and(
-        eq(schema.exerciseAttempts.learnerId, LEARNER_ID),
+        eq(schema.exerciseAttempts.learnerId, (await requireLearnerId())),
         inArray(
           schema.exerciseAttempts.exerciseId,
           exercises.map((e) => e.id),
@@ -39,7 +39,7 @@ export async function hasPriorAttempt(exerciseId: string): Promise<boolean> {
     .from(schema.exerciseAttempts)
     .where(
       and(
-        eq(schema.exerciseAttempts.learnerId, LEARNER_ID),
+        eq(schema.exerciseAttempts.learnerId, (await requireLearnerId())),
         eq(schema.exerciseAttempts.exerciseId, exerciseId),
       ),
     )
@@ -69,7 +69,7 @@ export async function saveAttempt(args: {
     .insert(schema.exerciseAttempts)
     .values({
       id: randomUUID(),
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       exerciseId: args.exerciseId,
       response: args.response,
       rubricHits: args.rubricHits,
@@ -91,7 +91,7 @@ export async function allExerciseAttempts(): Promise<
     .from(schema.exerciseAttempts)
     .innerJoin(schema.exercises, eq(schema.exerciseAttempts.exerciseId, schema.exercises.id))
     .innerJoin(schema.lessons, eq(schema.exercises.lessonId, schema.lessons.id))
-    .where(eq(schema.exerciseAttempts.learnerId, LEARNER_ID))
+    .where(eq(schema.exerciseAttempts.learnerId, (await requireLearnerId())))
     .orderBy(desc(schema.exerciseAttempts.submittedAt));
 
   return rows.map((r) => ({ ...r.attempt, lessonId: r.lessonId, topicSource: r.tags }));

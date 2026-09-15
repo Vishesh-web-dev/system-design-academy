@@ -17,3 +17,6 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 coverage/
+
+# E2E saved session (contains a session cookie)
+tests/e2e/.auth/

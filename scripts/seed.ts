@@ -8,6 +8,7 @@ import { loadEnv } from './env';
 import { curriculum, lessonOrder } from '../content/curriculum';
 import { Lesson, ResourceFile } from '../content/schema';
 import { findLessonFiles, slugFromFile } from './build-content-index';
+import { hashPassword } from '../lib/auth/password';
 
 loadEnv();
 
@@ -16,6 +17,11 @@ const db = getDb();
 
 const DEMO = process.argv.includes('--demo');
 const LEARNER = 'local';
+// The built-in dev / E2E account. Real users sign up their own isolated
+// accounts; this one exists so `npm run dev` and the E2E suite have something
+// to log into. Overridable for a shared environment.
+const DEV_EMAIL = process.env.DEV_ACCOUNT_EMAIL ?? 'local@sda.test';
+const DEV_PASSWORD = process.env.DEV_ACCOUNT_PASSWORD ?? 'local-password-123';
 
 /**
  * Projects content/ into the curriculum tables and ensures the single local
@@ -323,7 +329,14 @@ async function seedResources() {
 }
 
 async function seedLearner() {
-  await db.insert(schema.learners).values({ id: LEARNER, displayName: 'Learner' }).onConflictDoNothing();
+  const passwordHash = await hashPassword(DEV_PASSWORD);
+  await db
+    .insert(schema.learners)
+    .values({ id: LEARNER, displayName: 'Learner', email: DEV_EMAIL, passwordHash })
+    .onConflictDoUpdate({
+      target: schema.learners.id,
+      set: { email: DEV_EMAIL, passwordHash },
+    });
   await db
     .insert(schema.userSettings)
     .values({ learnerId: LEARNER, startDate: new Date().toISOString().slice(0, 10) })

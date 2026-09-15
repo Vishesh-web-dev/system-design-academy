@@ -1,12 +1,23 @@
 import Link from 'next/link';
 import { NavRail } from './NavRail';
 import { ThemeToggle } from './ThemeToggle';
+import { getCurrentUser } from '@/lib/auth/session';
 
 /**
  * The plan sheet: a narrow persistent spine on the left, the sheet in the
  * middle. Lesson pages add their own right-hand margin rail.
+ *
+ * Unauthenticated requests (the /login and /signup pages) get a bare frame —
+ * the auth form provides its own full-screen layout — so the nav only appears
+ * once someone is signed in.
  */
-export function AppShell({ children }: { children: React.ReactNode }) {
+export async function AppShell({ children }: { children: React.ReactNode }) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return <div className="min-h-dvh">{children}</div>;
+  }
+
   return (
     <div className="flex min-h-dvh flex-col lg:flex-row">
       <a
@@ -23,7 +34,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <ThemeToggle />
       </header>
 
-      <NavRail />
+      <NavRail account={{ displayName: user.displayName, email: user.email }} />
 
       <main id="sheet" className="min-w-0 flex-1">
         {children}

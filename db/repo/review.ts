@@ -1,6 +1,6 @@
 import { and, asc, eq, lte, sql } from 'drizzle-orm';
 import { getDb, schema } from '../client';
-import { LEARNER_ID } from './learner';
+import { requireLearnerId } from '@/lib/auth/session';
 import { schedule, type Grade, type SchedulingState } from '@/lib/learning/sm2';
 
 export type ReviewItemRow = typeof schema.reviewItems.$inferSelect;
@@ -29,7 +29,7 @@ export async function queueReview(
 ): Promise<void> {
   await getDb()
     .insert(schema.reviewItems)
-    .values({ learnerId: LEARNER_ID, lessonId, reason, priority, dueAt, intervalDays: 1 })
+    .values({ learnerId: (await requireLearnerId()), lessonId, reason, priority, dueAt, intervalDays: 1 })
     .onConflictDoUpdate({
       target: [schema.reviewItems.learnerId, schema.reviewItems.lessonId],
       set: {
@@ -57,7 +57,7 @@ export async function dueReviewItems(now: Date = new Date()) {
     })
     .from(schema.reviewItems)
     .innerJoin(schema.lessons, eq(schema.reviewItems.lessonId, schema.lessons.id))
-    .where(and(eq(schema.reviewItems.learnerId, LEARNER_ID), lte(schema.reviewItems.dueAt, now)))
+    .where(and(eq(schema.reviewItems.learnerId, (await requireLearnerId())), lte(schema.reviewItems.dueAt, now)))
     .orderBy(asc(schema.reviewItems.dueAt));
 }
 
@@ -65,7 +65,7 @@ export async function allReviewItems(): Promise<ReviewItemRow[]> {
   return getDb()
     .select()
     .from(schema.reviewItems)
-    .where(eq(schema.reviewItems.learnerId, LEARNER_ID));
+    .where(eq(schema.reviewItems.learnerId, (await requireLearnerId())));
 }
 
 /** Clearing a review item pushes it out on the SM-2 curve rather than deleting it. */
@@ -75,7 +75,7 @@ export async function clearReviewItem(lessonId: string, grade: Grade): Promise<v
     .select()
     .from(schema.reviewItems)
     .where(
-      and(eq(schema.reviewItems.learnerId, LEARNER_ID), eq(schema.reviewItems.lessonId, lessonId)),
+      and(eq(schema.reviewItems.learnerId, (await requireLearnerId())), eq(schema.reviewItems.lessonId, lessonId)),
     );
   if (!row) return;
 
@@ -97,7 +97,7 @@ export async function clearReviewItem(lessonId: string, grade: Grade): Promise<v
       priority: grade >= 4 ? 10 : row.priority,
     })
     .where(
-      and(eq(schema.reviewItems.learnerId, LEARNER_ID), eq(schema.reviewItems.lessonId, lessonId)),
+      and(eq(schema.reviewItems.learnerId, (await requireLearnerId())), eq(schema.reviewItems.lessonId, lessonId)),
     );
 }
 
@@ -117,7 +117,7 @@ export async function dueFlashcards(limit = 40, now: Date = new Date()) {
     .innerJoin(schema.lessons, eq(schema.flashcards.lessonId, schema.lessons.id))
     .where(
       and(
-        eq(schema.flashcardProgress.learnerId, LEARNER_ID),
+        eq(schema.flashcardProgress.learnerId, (await requireLearnerId())),
         lte(schema.flashcardProgress.dueAt, now),
       ),
     )
@@ -137,7 +137,7 @@ export async function dueFlashcards(limit = 40, now: Date = new Date()) {
       schema.lessonProgress,
       and(
         eq(schema.lessonProgress.lessonId, schema.lessons.id),
-        eq(schema.lessonProgress.learnerId, LEARNER_ID),
+        eq(schema.lessonProgress.learnerId, (await requireLearnerId())),
       ),
     )
     .where(
@@ -146,7 +146,7 @@ export async function dueFlashcards(limit = 40, now: Date = new Date()) {
         sql`not exists (
           select 1 from ${schema.flashcardProgress} fp
           where fp.flashcard_id = ${schema.flashcards.id}
-            and fp.learner_id = ${LEARNER_ID}
+            and fp.learner_id = ${(await requireLearnerId())}
         )`,
       ),
     )
@@ -168,7 +168,7 @@ export async function gradeFlashcard(flashcardId: string, grade: Grade): Promise
     .from(schema.flashcardProgress)
     .where(
       and(
-        eq(schema.flashcardProgress.learnerId, LEARNER_ID),
+        eq(schema.flashcardProgress.learnerId, (await requireLearnerId())),
         eq(schema.flashcardProgress.flashcardId, flashcardId),
       ),
     );
@@ -187,7 +187,7 @@ export async function gradeFlashcard(flashcardId: string, grade: Grade): Promise
   await db
     .insert(schema.flashcardProgress)
     .values({
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       flashcardId,
       ease: next.ease,
       intervalDays: next.intervalDays,
@@ -231,5 +231,5 @@ export async function flashcardProgressForMastery() {
     })
     .from(schema.flashcardProgress)
     .innerJoin(schema.flashcards, eq(schema.flashcardProgress.flashcardId, schema.flashcards.id))
-    .where(eq(schema.flashcardProgress.learnerId, LEARNER_ID));
+    .where(eq(schema.flashcardProgress.learnerId, (await requireLearnerId())));
 }

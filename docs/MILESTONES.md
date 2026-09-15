@@ -262,7 +262,9 @@ Checked by `npm run verify`, which writes `docs/V1_VERIFICATION.md`.
 
 ## V2 candidates (explicitly not V1)
 
-Multi-user auth · Docker/K8s/CI-CD tracks · cloud certification tracks · data
+Multi-user auth *(built post-V1 — email+password, per-account isolation; see
+STATE.md decision 13)* · OAuth providers · Docker/K8s/CI-CD tracks · cloud
+certification tracks · data
 engineering track · generic frontend track · competitive programming ·
 voice mock interviews · whiteboard/diagram capture and grading · shared or
 public progress · mobile app.

@@ -154,11 +154,38 @@ export const resources = pgTable('resources', {
 
 // ── Learner state ───────────────────────────────────────────────────────────
 
-export const learners = pgTable('learners', {
-  id: text('id').primaryKey(),
-  displayName: text('display_name').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-});
+export const learners = pgTable(
+  'learners',
+  {
+    id: text('id').primaryKey(),
+    displayName: text('display_name').notNull(),
+    // Nullable so the legacy/dev "local" row and any pre-auth data remain valid;
+    // every account created through signup carries both. Email is unique among
+    // the rows that have one (Postgres treats NULLs as distinct).
+    email: text('email'),
+    passwordHash: text('password_hash'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex('learners_email_idx').on(t.email)],
+);
+
+/**
+ * Database-backed sessions. The cookie holds an opaque random token; only its
+ * SHA-256 hash is stored here as the primary key, so a database leak yields no
+ * usable session. Expired rows are ignored on read and swept opportunistically.
+ */
+export const sessions = pgTable(
+  'sessions',
+  {
+    id: text('id').primaryKey(), // sha256(token)
+    learnerId: text('learner_id')
+      .notNull()
+      .references(() => learners.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  },
+  (t) => [index('sessions_learner_idx').on(t.learnerId), index('sessions_expiry_idx').on(t.expiresAt)],
+);
 
 export const userSettings = pgTable('user_settings', {
   learnerId: text('learner_id')

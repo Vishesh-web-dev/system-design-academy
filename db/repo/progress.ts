@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, asc, desc, eq, gte, sql } from 'drizzle-orm';
 import { getDb, schema } from '../client';
-import { LEARNER_ID } from './learner';
+import { requireLearnerId } from '@/lib/auth/session';
 
 export type LessonProgress = typeof schema.lessonProgress.$inferSelect;
 export type LessonRow = typeof schema.lessons.$inferSelect;
@@ -12,7 +12,7 @@ export async function getProgressMap(): Promise<Map<string, LessonProgress>> {
   const rows = await getDb()
     .select()
     .from(schema.lessonProgress)
-    .where(eq(schema.lessonProgress.learnerId, LEARNER_ID));
+    .where(eq(schema.lessonProgress.learnerId, (await requireLearnerId())));
   return new Map(rows.map((r) => [r.lessonId, r]));
 }
 
@@ -22,7 +22,7 @@ export async function getProgress(lessonId: string): Promise<LessonProgress | un
     .from(schema.lessonProgress)
     .where(
       and(
-        eq(schema.lessonProgress.learnerId, LEARNER_ID),
+        eq(schema.lessonProgress.learnerId, (await requireLearnerId())),
         eq(schema.lessonProgress.lessonId, lessonId),
       ),
     );
@@ -39,7 +39,7 @@ export async function markSectionSeen(lessonId: string, sectionId: string): Prom
   await db
     .insert(schema.lessonProgress)
     .values({
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       lessonId,
       status: 'in_progress',
       sectionsSeen: [sectionId],
@@ -70,7 +70,7 @@ export async function addTimeSpent(lessonId: string, seconds: number): Promise<v
   const localDay = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
   await db
     .insert(schema.studyDays)
-    .values({ learnerId: LEARNER_ID, day: localDay, seconds: capped })
+    .values({ learnerId: (await requireLearnerId()), day: localDay, seconds: capped })
     .onConflictDoUpdate({
       target: [schema.studyDays.learnerId, schema.studyDays.day],
       set: { seconds: sql`${schema.studyDays.seconds} + ${capped}` },
@@ -79,7 +79,7 @@ export async function addTimeSpent(lessonId: string, seconds: number): Promise<v
   await db
     .insert(schema.lessonProgress)
     .values({
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       lessonId,
       status: 'in_progress',
       timeSpentSeconds: capped,
@@ -109,7 +109,7 @@ export async function completeLesson(lessonId: string): Promise<{ alreadyComplet
   await db
     .insert(schema.lessonProgress)
     .values({
-      learnerId: LEARNER_ID,
+      learnerId: (await requireLearnerId()),
       lessonId,
       status: 'completed',
       startedAt: now,
@@ -131,7 +131,7 @@ export async function reopenLesson(lessonId: string): Promise<void> {
     .set({ status: 'in_progress', completedAt: null })
     .where(
       and(
-        eq(schema.lessonProgress.learnerId, LEARNER_ID),
+        eq(schema.lessonProgress.learnerId, (await requireLearnerId())),
         eq(schema.lessonProgress.lessonId, lessonId),
       ),
     );
@@ -152,7 +152,7 @@ export type XpKind =
 export async function awardXp(kind: XpKind, amount: number, ref?: string): Promise<void> {
   await getDb().insert(schema.xpEvents).values({
     id: randomUUID(),
-    learnerId: LEARNER_ID,
+    learnerId: (await requireLearnerId()),
     kind,
     amount,
     ref: ref ?? null,
@@ -164,7 +164,7 @@ export async function minutesStudiedOn(day: Date): Promise<number> {
   const [row] = await getDb()
     .select()
     .from(schema.studyDays)
-    .where(and(eq(schema.studyDays.learnerId, LEARNER_ID), eq(schema.studyDays.day, localDay)));
+    .where(and(eq(schema.studyDays.learnerId, (await requireLearnerId())), eq(schema.studyDays.day, localDay)));
   return Math.round((row?.seconds ?? 0) / 60);
 }
 
@@ -175,7 +175,7 @@ export async function getXpEvents(sinceDays = 400): Promise<XpEvent[]> {
   return getDb()
     .select()
     .from(schema.xpEvents)
-    .where(and(eq(schema.xpEvents.learnerId, LEARNER_ID), gte(schema.xpEvents.createdAt, since)))
+    .where(and(eq(schema.xpEvents.learnerId, (await requireLearnerId())), gte(schema.xpEvents.createdAt, since)))
     .orderBy(desc(schema.xpEvents.createdAt));
 }
 

@@ -12,10 +12,13 @@ export default defineConfig({
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : [['list']],
   timeout: 60_000,
   expect: { timeout: 10_000 },
+  // Log in once as the seeded dev account; every test reuses the session.
+  globalSetup: './tests/e2e/global-setup.ts',
   use: {
     baseURL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    storageState: 'tests/e2e/.auth/state.json',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {

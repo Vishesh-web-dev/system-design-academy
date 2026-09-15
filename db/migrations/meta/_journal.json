@@ -15,6 +15,13 @@
       "when": 1788598539808,
       "tag": "0001_study_days",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789476934195,
+      "tag": "0002_overconfident_drax",
+      "breakpoints": true
     }
   ]
 }

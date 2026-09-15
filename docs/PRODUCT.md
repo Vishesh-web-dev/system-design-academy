@@ -126,12 +126,21 @@ submitting exercises, clearing review items, completing mock interviews,
 surviving Boss Mode. Reading a page earns little. No point inflation, no badge
 for logging in.
 
-## Privacy model (V1)
+## Privacy model
 
-No authentication system. A single `local` learner row holds all progress. A
-public deployment is a personal deployment: enable Vercel Deployment Protection.
-No multi-tenant infrastructure, no user identity service, no exposure of another
-learner's state — because there is no other learner.
+**V1 (shipped):** no authentication; a single `local` learner row held all
+progress.
+
+**Post-V1 (added at the user's direction):** email+password authentication with
+per-account isolation. Each account sees only its own progress, notes, quiz
+attempts, reviews, XP, streaks and interviews — every read and write is scoped
+to the session's learner id, enforced in the data layer, not the UI. Signup is
+open to anyone with the URL; there is no cross-account visibility. Auth is
+custom and dependency-free (Node scrypt hashing, database-backed sessions, an
+httpOnly cookie); the AI key handling is unchanged. `local` is now the seeded
+dev/E2E account rather than the only learner. See STATE.md frozen decision 13.
+For a personal deployment, Vercel Deployment Protection is still recommended as
+defence in depth.
 
 ## Honesty constraints
 

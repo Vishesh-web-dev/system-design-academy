@@ -11,8 +11,10 @@ import {
   NotebookPen,
   Settings,
 } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
+import { logout } from '@/app/auth/actions';
 
 const links = [
   { href: '/', label: 'Today', icon: LayoutDashboard },
@@ -24,7 +26,9 @@ const links = [
   { href: '/settings', label: 'Settings', icon: Settings },
 ] as const;
 
-export function NavRail() {
+type Account = { displayName: string; email: string | null };
+
+export function NavRail({ account }: { account?: Account }) {
   const pathname = usePathname();
 
   return (
@@ -63,8 +67,24 @@ export function NavRail() {
         );
       })}
 
-      <div className="mt-auto hidden lg:block">
+      <div className="mt-auto hidden flex-col gap-3 lg:flex">
         <ThemeToggle />
+        {account && (
+          <div className="border-t border-[var(--rule)] pt-3">
+            <p className="truncate px-2.5 text-xs text-[var(--text-dim)]" title={account.email ?? account.displayName}>
+              {account.email ?? account.displayName}
+            </p>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="mt-1 flex w-full items-center gap-2.5 rounded-[3px] px-2.5 py-2 text-sm text-[var(--text-dim)] transition-colors hover:bg-[var(--surface)] hover:text-[var(--text)]"
+              >
+                <LogOut size={15} strokeWidth={1.75} aria-hidden />
+                Log out
+              </button>
+            </form>
+          </div>
+        )}
       </div>
     </nav>
   );
