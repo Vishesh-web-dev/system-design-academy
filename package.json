@@ -18,7 +18,8 @@
     "db:reset": "tsx scripts/reset.ts",
     "content:index": "tsx scripts/build-content-index.ts",
     "content:validate": "tsx scripts/validate-content.ts",
-    "verify": "tsx scripts/verify-v1.ts"
+    "verify": "tsx scripts/verify-v1.ts",
+    "db:deploy": "tsx scripts/migrate.ts && tsx scripts/seed.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",
@@ -78,5 +79,8 @@
     "tw-animate-css": "^1.3.5",
     "typescript": "^5",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

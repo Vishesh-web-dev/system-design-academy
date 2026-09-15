@@ -329,13 +329,21 @@ async function seedResources() {
 }
 
 async function seedLearner() {
-  const passwordHash = await hashPassword(DEV_PASSWORD);
+  // The built-in dev/E2E account has a KNOWN password, so it must never be a
+  // usable login on a production site. Attach credentials only outside
+  // production — or when DEV_ACCOUNT_PASSWORD is set deliberately. In
+  // production the row is created without credentials (login impossible);
+  // real users sign up their own accounts.
+  const wantCredentials = Boolean(process.env.DEV_ACCOUNT_PASSWORD) || process.env.NODE_ENV !== 'production';
+  const email = wantCredentials ? DEV_EMAIL : null;
+  const passwordHash = wantCredentials ? await hashPassword(DEV_PASSWORD) : null;
+
   await db
     .insert(schema.learners)
-    .values({ id: LEARNER, displayName: 'Learner', email: DEV_EMAIL, passwordHash })
+    .values({ id: LEARNER, displayName: 'Learner', email, passwordHash })
     .onConflictDoUpdate({
       target: schema.learners.id,
-      set: { email: DEV_EMAIL, passwordHash },
+      set: { email, passwordHash },
     });
   await db
     .insert(schema.userSettings)
