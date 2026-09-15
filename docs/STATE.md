@@ -3,9 +3,12 @@
 Read this first. Resume from `NEXT`. Never revisit anything under Frozen
 decisions.
 
-    LAST_COMPLETED: 6
-    NEXT: 7 (content authoring in progress)
-    STATUS: clean
+    LAST_COMPLETED: 16 (V1 verification)
+    NEXT: none — V1 Definition of Done fully met
+    STATUS: V1 COMPLETE — `npm run verify` passes all 17 requirements
+            (docs/V1_VERIFICATION.md, commit recorded there). All 89
+            lessons Complete; every gate green; live-provider path
+            verified against a real key.
 
     ## Content progress
     **89 of 89 lessons Complete — ALL CURRICULUM CONTENT AUTHORED.**
@@ -153,6 +156,20 @@ Append-only. Each entry is settled.
   they trim without losing an argument.
 - `git` has no configured identity in this environment. Commit with
   `git -c user.name="Vishesh Shrivastava" -c user.email="vishesh.shrivastava@rapidops.com" commit ...`
-- `docs/V1_VERIFICATION.md` and `scripts/verify-v1.ts` are not written yet (M16).
-- The live-provider interview path has not been exercised against a real key;
-  record that check in `docs/V1_VERIFICATION.md` when it is.
+- RESOLVED: `scripts/verify-v1.ts` and `docs/V1_VERIFICATION.md` are written
+  (M16). `npm run verify` runs the 17 V1 DoD checks — content checks re-derived
+  from `content/` + the five gate subprocesses (lint, typecheck, test, e2e,
+  build) run for real — and writes the report. Full run 2026-09-15 (commit
+  d67c63e): all 17 PASS.
+- RESOLVED: the live-provider interview path is verified. `scripts/check-live-
+  provider.ts` (a network+key script, out of the standard gates like verify-
+  resources) makes one real interviewer turn and writes `docs/live-provider-
+  check.json`, which verify-v1 embeds. Recorded PASS: google/gemini-3.6-flash.
+- Provider-model drift fixed: the configured Google key rejected the former
+  `gemini-2.5-flash` default ("no longer available, use gemini-3.6-flash"), so
+  `lib/ai/provider.ts` DEFAULT_MODELS.google now points at `gemini-3.6-flash`
+  (main and fast; the fast tier has no caller today). Anthropic defaults left
+  untouched — that provider is not configured here and cannot be verified
+  without its key. `scripts/check-live-provider.ts` mirrors the google `main`
+  default by hand (it can't import the `server-only` provider), so keep the two
+  in sync if the default changes again.

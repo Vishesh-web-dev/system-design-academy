@@ -14,8 +14,14 @@ import type { LanguageModel } from 'ai';
 export type ProviderName = 'google' | 'anthropic' | 'mock';
 export type Tier = 'main' | 'fast';
 
+// Confirmed live against the configured Google key on 2026-09-15: the former
+// gemini-2.5-flash default now 404s with "no longer available, use
+// gemini-3.6-flash". The fast tier has no caller in the codebase today, so it
+// points at the same known-available model; override with AI_MODEL_FAST once a
+// current lite model is confirmed. Anthropic defaults are left as-is — that
+// provider is not configured here and cannot be verified without its key.
 const DEFAULT_MODELS: Record<Exclude<ProviderName, 'mock'>, Record<Tier, string>> = {
-  google: { main: 'gemini-2.5-flash', fast: 'gemini-2.5-flash-lite' },
+  google: { main: 'gemini-3.6-flash', fast: 'gemini-3.6-flash' },
   anthropic: { main: 'claude-sonnet-4-5', fast: 'claude-haiku-4-5-20251001' },
 };
 

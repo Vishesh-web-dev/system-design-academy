@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "status": "pass",
+  "provider": "google",
+  "model": "gemini-3.6-flash",
+  "latencyMs": 4107,
+  "sample": "Welcome,",
+  "checkedAt": "2026-09-15T07:08:09.847Z"
+}
