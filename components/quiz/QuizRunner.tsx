@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Check, X } from 'lucide-react';
 import type { QuizQuestion } from '@/content/schema';
 import { Button, Meter, Sheet, Tag } from '../ui/primitives';
+import { useReward } from '@/components/reward/RewardProvider';
 import { submitQuizAttempt } from '@/app/lesson/quiz-actions';
 import { cn } from '@/lib/utils';
 
@@ -35,6 +36,7 @@ export function QuizRunner({
   const [pending, startTransition] = useTransition();
   const startedAt = useRef(new Date().toISOString());
   const router = useRouter();
+  const reward = useReward();
 
   const q = questions[index];
   const isMulti = q?.kind === 'multi';
@@ -67,11 +69,12 @@ export function QuizRunner({
     }
     setFinished(true);
     startTransition(async () => {
-      await submitQuizAttempt({
+      const res = await submitQuizAttempt({
         lessonId: lessonSlug,
         startedAt: startedAt.current,
         answers,
       });
+      if (res.ok) reward.show(res.reward);
       router.refresh();
     });
   }

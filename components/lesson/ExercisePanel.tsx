@@ -5,6 +5,7 @@ import type { Exercise } from '@/content/schema';
 import { Button, Tag } from '../ui/primitives';
 import { RevealBlock } from './RevealBlock';
 import { Markdown } from './Markdown';
+import { useReward } from '@/components/reward/RewardProvider';
 import { submitExercise } from '@/app/lesson/exercise-actions';
 
 /**
@@ -29,6 +30,7 @@ export function ExercisePanel({
   const [rating, setRating] = useState<number | null>(previous?.selfRating ?? null);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const reward = useReward();
 
   const tooShort = response.trim().split(/\s+/).filter(Boolean).length < 25;
 
@@ -44,6 +46,7 @@ export function ExercisePanel({
       else {
         setError(null);
         setSubmitted(true);
+        reward.show(result.reward);
       }
     });
   }

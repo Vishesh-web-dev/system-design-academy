@@ -13,6 +13,7 @@ import { getLesson } from '@/lib/content/loader';
 import { sectionsFor } from '@/lib/content/sections';
 import { canCompleteLesson } from '@/lib/learning/mastery';
 import { ensureLearner } from '@/db/repo/learner';
+import type { RewardPayload } from '@/lib/learning/reward';
 
 /**
  * Server actions for the lesson player. All database access goes through
@@ -31,7 +32,7 @@ export async function recordTimeSpent(lessonId: string, seconds: number): Promis
 }
 
 export type CompletionResult =
-  | { ok: true; alreadyComplete: boolean }
+  | { ok: true; alreadyComplete: boolean; reward?: RewardPayload }
   | { ok: false; missing: string[] };
 
 /**
@@ -54,10 +55,10 @@ export async function markLessonComplete(lessonId: string): Promise<CompletionRe
 
   if (!check.allowed) return { ok: false, missing: check.missing };
 
-  const { alreadyComplete } = await completeLesson(lessonId);
+  const { alreadyComplete, reward } = await completeLesson(lessonId);
   revalidatePath('/');
   revalidatePath(`/lesson/${lessonId}`);
-  return { ok: true, alreadyComplete };
+  return { ok: true, alreadyComplete, reward };
 }
 
 export async function markLessonIncomplete(lessonId: string): Promise<void> {

@@ -5,6 +5,7 @@ import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/primitives';
 import { REVIEW_GRADES } from '@/lib/learning/sm2';
+import { useReward } from '@/components/reward/RewardProvider';
 import { clearReview } from '@/app/review/actions';
 
 const REASON_TEXT: Record<string, string> = {
@@ -21,6 +22,7 @@ export function ReviewItemList({
 }) {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const reward = useReward();
 
   return (
     <ul className="space-y-3">
@@ -48,7 +50,8 @@ export function ReviewItemList({
                 title={g.hint}
                 onClick={() =>
                   startTransition(async () => {
-                    await clearReview(item.lessonId, g.grade);
+                    const r = await clearReview(item.lessonId, g.grade);
+                    reward.show(r);
                     router.refresh();
                   })
                 }

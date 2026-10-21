@@ -4,8 +4,10 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { ensureLearner } from '@/db/repo/learner';
 import { getQuestions, recordAttempt } from '@/db/repo/quiz';
-import { awardXp } from '@/db/repo/progress';
+import { mintXp } from '@/db/repo/progress';
 import { queueFromQuizMisses } from '@/db/repo/review';
+import { XP_VALUES } from '@/lib/learning/xp';
+import type { RewardPayload } from '@/lib/learning/reward';
 
 const Input = z.object({
   lessonId: z.string().min(1),
@@ -24,7 +26,7 @@ const Input = z.object({
 });
 
 export type QuizSubmitResult =
-  | { ok: true; score: number; total: number }
+  | { ok: true; score: number; total: number; reward?: RewardPayload }
   | { ok: false; error: string };
 
 /**
@@ -57,8 +59,9 @@ export async function submitQuizAttempt(input: unknown): Promise<QuizSubmitResul
   const attempt = await recordAttempt({ lessonId, answers: graded, startedAt: new Date(startedAt) });
 
   const ratio = attempt.total ? attempt.score / attempt.total : 0;
-  if (ratio === 1) await awardXp('quiz_perfect', 40, lessonId);
-  else if (ratio >= 0.7) await awardXp('quiz_pass', 25, lessonId);
+  let reward: RewardPayload | undefined;
+  if (ratio === 1) reward = await mintXp('quiz_perfect', XP_VALUES.quiz_perfect, lessonId);
+  else if (ratio >= 0.7) reward = await mintXp('quiz_pass', XP_VALUES.quiz_pass, lessonId);
 
   // A wrong answer is the strongest signal the platform gets. It goes straight
   // into the review queue (docs/PRODUCT.md → Spaced repetition).
@@ -67,5 +70,5 @@ export async function submitQuizAttempt(input: unknown): Promise<QuizSubmitResul
   revalidatePath('/');
   revalidatePath('/review');
   revalidatePath(`/lesson/${lessonId}`);
-  return { ok: true, score: attempt.score, total: attempt.total };
+  return { ok: true, score: attempt.score, total: attempt.total, reward };
 }

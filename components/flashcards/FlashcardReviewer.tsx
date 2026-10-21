@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Meter, Sheet } from '../ui/primitives';
 import { REVIEW_GRADES, type Grade } from '@/lib/learning/sm2';
+import { useReward } from '@/components/reward/RewardProvider';
+import { isSignificant } from '@/lib/learning/reward';
 import { gradeCard } from '@/app/review/actions';
 
 export interface ReviewCard {
@@ -25,6 +27,7 @@ export function FlashcardReviewer({ cards }: { cards: ReviewCard[] }) {
   const [graded, setGraded] = useState(0);
   const [, startTransition] = useTransition();
   const router = useRouter();
+  const reward = useReward();
 
   const card = cards[index];
   const done = index >= cards.length;
@@ -34,13 +37,16 @@ export function FlashcardReviewer({ cards }: { cards: ReviewCard[] }) {
       if (!card) return;
       const id = card.id;
       startTransition(async () => {
-        await gradeCard(id, grade);
+        const r = await gradeCard(id, grade);
+        // A deck is dozens of +2 XP cards; only surface the moments that matter
+        // (a level-up, a streak milestone, an unlocked achievement).
+        if (r && isSignificant(r)) reward.show(r);
       });
       setGraded((g) => g + 1);
       setRevealed(false);
       setIndex((i) => i + 1);
     },
-    [card],
+    [card, reward],
   );
 
   useEffect(() => {

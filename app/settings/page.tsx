@@ -100,6 +100,67 @@ export default async function SettingsPage() {
             </div>
           </fieldset>
 
+          <fieldset className="border-t border-[var(--rule)] pt-5">
+            <legend className="text-sm font-medium">Motivation &amp; focus</legend>
+            <p className="mb-3 text-xs text-[var(--text-faint)]">
+              The reward feedback and the &ldquo;one rep&rdquo; focus timer exist to beat temporal
+              discounting — a near, concrete finish line. Tune them, or turn them off.
+            </p>
+
+            <div className="space-y-3">
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+                <input
+                  type="checkbox"
+                  name="rewardAnimations"
+                  defaultChecked={s.rewardAnimations}
+                  className="h-3.5 w-3.5 accent-[var(--color-signal-500)]"
+                />
+                Animate reward pop-ups (XP, level-ups, achievements)
+              </label>
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+                <input
+                  type="checkbox"
+                  name="soundEnabled"
+                  defaultChecked={s.soundEnabled}
+                  className="h-3.5 w-3.5 accent-[var(--color-signal-500)]"
+                />
+                Play a sound on a level-up, streak milestone or achievement
+              </label>
+            </div>
+
+            <div className="mt-4 grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="dailyRepTarget" className="text-sm font-medium">Daily rep target</label>
+                <p className="mb-1.5 text-xs text-[var(--text-faint)]">
+                  How many finishable actions count as a good day.
+                </p>
+                <input
+                  id="dailyRepTarget"
+                  name="dailyRepTarget"
+                  type="number"
+                  min={1}
+                  max={10}
+                  defaultValue={s.dailyRepTarget}
+                  className="w-full rounded-[3px] border border-[var(--rule-strong)] bg-[var(--ground)] px-3 py-2 font-mono text-sm outline-none focus-visible:border-signal-600"
+                />
+              </div>
+              <div>
+                <label htmlFor="focusTimerMinutes" className="text-sm font-medium">Focus timer (minutes)</label>
+                <p className="mb-1.5 text-xs text-[var(--text-faint)]">Length of one timed rep.</p>
+                <input
+                  id="focusTimerMinutes"
+                  name="focusTimerMinutes"
+                  type="number"
+                  min={5}
+                  max={60}
+                  step={5}
+                  defaultValue={s.focusTimerMinutes}
+                  className="w-full rounded-[3px] border border-[var(--rule-strong)] bg-[var(--ground)] px-3 py-2 font-mono text-sm outline-none focus-visible:border-signal-600"
+                />
+              </div>
+            </div>
+          </fieldset>
+
           <button
             type="submit"
             className="rounded-[3px] bg-signal-500 px-4 py-2 text-sm font-medium text-ink-950 hover:bg-signal-400"
@@ -121,9 +182,10 @@ export default async function SettingsPage() {
       <Sheet className="mt-6">
         <h2 className="text-sm font-semibold">Privacy</h2>
         <p className="mt-1.5 text-sm text-[var(--text-dim)]">
-          There is no authentication in V1 and no second learner. If you deploy this publicly, turn
-          on your host&apos;s deployment protection — otherwise anyone with the URL can read and
-          change your progress.
+          Every account sees only its own progress, notes, reviews and interviews — each read and
+          write is scoped to your session. Signup is open to anyone with the URL, so for a personal
+          deployment, turning on your host&apos;s deployment protection is still worthwhile as
+          defence in depth.
         </p>
       </Sheet>
     </div>

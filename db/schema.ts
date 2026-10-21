@@ -197,6 +197,13 @@ export const userSettings = pgTable('user_settings', {
   studyDays: text('study_days').array().notNull().default(['mon', 'tue', 'wed', 'thu', 'fri', 'sat']),
   theme: text('theme').notNull().default('system'),
   unlockMode: text('unlock_mode').notNull().default('strict'),
+  // Motivation surfaces (docs/STATE.md → frozen decision 14). Reward animations
+  // and sound are per-account preferences; the rep target and focus-timer length
+  // tune the "one rep tonight" loop.
+  rewardAnimations: boolean('reward_animations').notNull().default(true),
+  soundEnabled: boolean('sound_enabled').notNull().default(false),
+  dailyRepTarget: integer('daily_rep_target').notNull().default(3),
+  focusTimerMinutes: integer('focus_timer_minutes').notNull().default(20),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });
 

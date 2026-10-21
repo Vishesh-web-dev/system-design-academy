@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { HelpCircle, Send } from 'lucide-react';
 import { Button, Meter, Tag } from '../ui/primitives';
 import { PHASES, PHASE_LABEL, formatClock, type Phase } from '@/lib/ai/session';
+import { useReward } from '@/components/reward/RewardProvider';
 import { finishInterview, submitAnswer } from '@/app/interview/actions';
 import { cn } from '@/lib/utils';
 
@@ -48,6 +49,7 @@ export function InterviewSession({
   const [error, setError] = useState<string | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const reward = useReward();
 
   useEffect(() => {
     const started = new Date(startedAtIso).getTime();
@@ -167,16 +169,22 @@ export function InterviewSession({
               <HelpCircle size={14} /> Ask for a hint
             </Button>
             <span className="text-xs text-[var(--text-faint)]">⌘/Ctrl + Enter to send</span>
-            <form
+            <Button
+              type="button"
+              variant="secondary"
               className="ml-auto"
-              action={async () => {
-                await finishInterview(interviewId);
-              }}
+              data-testid="end-interview"
+              disabled={pending}
+              onClick={() =>
+                startTransition(async () => {
+                  const r = await finishInterview(interviewId);
+                  reward.show(r);
+                  router.refresh();
+                })
+              }
             >
-              <Button type="submit" variant="secondary" data-testid="end-interview">
-                End and get scorecard
-              </Button>
-            </form>
+              End and get scorecard
+            </Button>
           </div>
           {error ? <p className="mt-2 text-xs text-alert-400">{error}</p> : null}
           {overtime ? (

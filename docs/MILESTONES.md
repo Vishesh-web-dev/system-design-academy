@@ -178,6 +178,12 @@ unlock, topic mastery map.
   interview signals move the score with documented weights.
 - Every achievement has a mechanical unlock condition and a test.
 
+*Post-V1 (STATE.md decision 14): the `achievements` table, left as a schema stub
+through V1, is now wired — definitions and XP-ledger-derived unlock conditions in
+`lib/learning/achievements.ts` (unit-tested), evaluated inside `mintXp`, surfaced
+on the dashboard and `/achievements`. XP rewards are now shown immediately
+(reward toasts) and paired with a concrete "one rep" focus loop.*
+
 ---
 
 ## M13 — Search, notes, recommendations

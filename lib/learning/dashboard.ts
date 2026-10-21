@@ -1,7 +1,7 @@
 import { curriculum, lessonOrder } from '@/content/curriculum';
 import { authoredSlugs } from '@/lib/content/loader';
 import { ensureLearner } from '@/db/repo/learner';
-import { getProgressMap, getXpEvents, listLessons, minutesStudiedOn } from '@/db/repo/progress';
+import { getProgressMap, getXpEvents, listAchievements, listLessons, minutesStudiedOn } from '@/db/repo/progress';
 import { allAttempts } from '@/db/repo/quiz';
 import { allExerciseAttempts } from '@/db/repo/exercises';
 import { countDueFlashcards, dueReviewItems, flashcardProgressForMastery } from '@/db/repo/review';
@@ -16,7 +16,7 @@ import {
 } from './mastery';
 import { computePace, type Pace } from './pace';
 import { recommend, weakestTopics, type Recommendation } from './recommend';
-import { currentStreak, levelFromXp, longestStreak, toDailyActivity } from './xp';
+import { currentStreak, levelFromXp, localDate, longestStreak, repsOn, toDailyActivity } from './xp';
 
 export type LessonState = 'locked' | 'available' | 'in_progress' | 'completed' | 'unwritten';
 
@@ -41,7 +41,7 @@ export interface DashboardData {
   weak: MasteryScore[];
   pace: Pace;
   xp: { total: number; level: number; into: number; needed: number };
-  streak: { current: number; longest: number };
+  streak: { current: number; longest: number; activeToday: boolean };
   counts: {
     completed: number;
     authored: number;
@@ -50,6 +50,12 @@ export interface DashboardData {
     dueReviews: number;
     minutesToday: number;
   };
+  /** The single promoted action for the "one rep" hero. */
+  nextRep: Recommendation | null;
+  /** The near, concrete finish lines: minutes and reps against today's targets. */
+  daily: { minutesToday: number; goalMinutes: number; repsToday: number; repTarget: number };
+  focusTimerMinutes: number;
+  achievements: string[];
   dueReviews: Array<{ lessonId: string; title: string; reason: string }>;
 }
 
@@ -68,6 +74,7 @@ export async function loadDashboard(now: Date = new Date()): Promise<DashboardDa
     ivSignals,
     lastInterview,
     minutesToday,
+    unlockedAchievements,
   ] = await Promise.all([
     listLessons(),
     getProgressMap(),
@@ -80,6 +87,7 @@ export async function loadDashboard(now: Date = new Date()): Promise<DashboardDa
     interviewSignals(),
     lastInterviewAt(),
     minutesStudiedOn(now),
+    listAchievements(),
   ]);
 
   const written = new Set(authoredSlugs());
@@ -212,10 +220,13 @@ export async function loadDashboard(now: Date = new Date()): Promise<DashboardDa
     now,
   });
 
-  // ── XP, level, streak ─────────────────────────────────────────────────────
+  // ── XP, level, streak, reps ───────────────────────────────────────────────
   const activity = toDailyActivity(xpEvents);
   const totalXp = xpEvents.reduce((a, e) => a + e.amount, 0);
   const level = levelFromXp(totalXp);
+  const today = localDate(now);
+  const activeToday = xpEvents.some((e) => e.amount > 0 && localDate(e.createdAt) === today);
+  const repsToday = repsOn(xpEvents, now);
 
   // ── Recommendations ───────────────────────────────────────────────────────
   const lessonsByTopic = new Map<string, { slug: string; title: string }>();
@@ -258,7 +269,7 @@ export async function loadDashboard(now: Date = new Date()): Promise<DashboardDa
     weak,
     pace,
     xp: { total: totalXp, ...level },
-    streak: { current: currentStreak(activity, now), longest: longestStreak(activity) },
+    streak: { current: currentStreak(activity, now), longest: longestStreak(activity), activeToday },
     counts: {
       completed: completedCount,
       authored: written.size,
@@ -267,6 +278,15 @@ export async function loadDashboard(now: Date = new Date()): Promise<DashboardDa
       dueReviews: reviews.length,
       minutesToday,
     },
+    nextRep: recommendations[0] ?? null,
+    daily: {
+      minutesToday,
+      goalMinutes: settings.dailyGoalMinutes,
+      repsToday,
+      repTarget: settings.dailyRepTarget,
+    },
+    focusTimerMinutes: settings.focusTimerMinutes,
+    achievements: unlockedAchievements.map((a) => a.code),
     dueReviews: reviews.map((r) => ({ lessonId: r.lessonId, title: r.title, reason: r.reason })),
   };
 }

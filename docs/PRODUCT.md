@@ -126,6 +126,22 @@ submitting exercises, clearing review items, completing mock interviews,
 surviving Boss Mode. Reading a page earns little. No point inflation, no badge
 for logging in.
 
+**Immediate, visible rewards (post-V1, see STATE.md decision 14).** The *substance*
+above is unchanged — XP is still minted only for real retrieval and reasoning.
+What changed is *visibility*: the moment effort earns XP, the learner sees it
+(an animated chip, and a louder moment for a level-up, a streak milestone or an
+unlocked achievement). Silent, delayed rewards lose to temporal discounting; the
+whole point is to make the payoff feel close. Achievements exist but are earned
+only for reasoning actions (first quiz passed, ten exercises, Boss Mode cleared,
+a seven-day streak), never for page views or logging in — every unlock condition
+is mechanical. All of it is tunable in Settings and respects reduced-motion.
+
+**The "one rep" loop.** A lesson is a large, distant finish line. The dashboard
+therefore promotes one concrete, finishable next action — a single rep — that can
+be started right now, untimed or against a short focus countdown ("solve one
+problem in the next 20 minutes"). A daily-goal ring and a finite "reps today"
+tally give the near, countable target that makes a session worth beginning.
+
 ## Privacy model
 
 **V1 (shipped):** no authentication; a single `local` learner row held all

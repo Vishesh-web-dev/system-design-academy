@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Meter } from '../ui/primitives';
 import { recordSectionSeen, recordTimeSpent } from '@/app/lesson/actions';
 
 /**
@@ -18,10 +19,12 @@ export function SectionRail({
   lessonId,
   sections,
   initiallySeen,
+  quizPassed,
 }: {
   lessonId: string;
   sections: Array<{ id: string; label: string }>;
   initiallySeen: string[];
+  quizPassed: boolean;
 }) {
   const [active, setActive] = useState(sections[0]?.id ?? '');
   const [seen, setSeen] = useState<Set<string>>(new Set(initiallySeen));
@@ -110,11 +113,27 @@ export function SectionRail({
 
   const done = sections.filter((s) => seen.has(s.id)).length;
 
+  // Progress toward the real completion gate (all sections opened + quiz ≥ 70%),
+  // so the bar is a true finish line, not just how far you scrolled.
+  const steps = sections.length + 1;
+  const doneSteps = done + (quizPassed ? 1 : 0);
+  const ready = doneSteps >= steps;
+
   return (
     <nav aria-label="Lesson sections" className="text-sm">
-      <p className="mb-3 font-mono text-xs text-[var(--text-faint)]">
-        {done}/{sections.length} sections opened
-      </p>
+      <div className="mb-3">
+        <p className="mb-2 font-mono text-xs text-[var(--text-faint)]">
+          {done}/{sections.length} sections opened
+        </p>
+        <Meter value={doneSteps} max={steps} tone={ready ? 'brass' : 'signal'} label="Lesson completion" />
+        <p className="mt-1.5 text-xs text-[var(--text-faint)]">
+          {ready
+            ? 'Finish line reached — mark it complete.'
+            : quizPassed
+              ? 'Quiz passed. Open the remaining sections.'
+              : 'Open every section and pass the quiz.'}
+        </p>
+      </div>
       <ol className="space-y-0.5">
         {sections.map((s) => (
           <li key={s.id}>

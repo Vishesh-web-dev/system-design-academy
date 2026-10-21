@@ -84,6 +84,38 @@ export function currentStreak(activity: DayActivity[], today: Date = new Date())
   return streak;
 }
 
+/**
+ * The "chunky" XP kinds that each count as one finished rep. Flashcard reviews
+ * are deliberately excluded here — a whole review session collapses to a single
+ * rep (see `repsOn`), so grinding a deck is not fifty reps.
+ */
+export const CHUNKY_XP_KINDS = [
+  'lesson_complete',
+  'quiz_pass',
+  'quiz_perfect',
+  'exercise_submit',
+  'interview_complete',
+  'boss_cleared',
+  'review_cleared',
+] as const;
+
+/**
+ * Reps completed on a given local day. A "rep" is one concrete, finishable unit
+ * of real work — the near, concrete finish line that beats temporal discounting
+ * (docs/PRODUCT.md → Gamification rules). Each chunky action is a rep; any
+ * flashcard reviewing at all counts as one further rep for the day.
+ */
+export function repsOn(
+  events: Array<{ kind: string; createdAt: Date }>,
+  day: Date = new Date(),
+): number {
+  const target = localDate(day);
+  const today = events.filter((e) => localDate(e.createdAt) === target);
+  const chunky = today.filter((e) => (CHUNKY_XP_KINDS as readonly string[]).includes(e.kind)).length;
+  const cards = today.some((e) => e.kind === 'flashcard_review') ? 1 : 0;
+  return chunky + cards;
+}
+
 export function longestStreak(activity: DayActivity[]): number {
   const dates = activity
     .filter((a) => a.xp > 0)

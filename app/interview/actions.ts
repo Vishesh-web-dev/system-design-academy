@@ -13,8 +13,10 @@ import {
   saveEvaluation,
   updateInterview,
 } from '@/db/repo/interview';
-import { awardXp, listLessons } from '@/db/repo/progress';
+import { listLessons, mintXp } from '@/db/repo/progress';
 import { queueReview } from '@/db/repo/review';
+import { XP_VALUES } from '@/lib/learning/xp';
+import type { RewardPayload } from '@/lib/learning/reward';
 import { getProblem } from '@/lib/ai/problems';
 import { openingTurn } from '@/lib/ai/interviewer';
 import { evaluateInterview, nextInterviewerTurn } from '@/lib/ai/engine';
@@ -133,16 +135,16 @@ export async function submitAnswer(input: unknown): Promise<AnswerResult> {
   return { ok: true };
 }
 
-export async function finishInterview(interviewId: string): Promise<void> {
+export async function finishInterview(interviewId: string): Promise<RewardPayload | null> {
   const interview = await getInterview(interviewId);
-  if (!interview) return;
+  if (!interview) return null;
 
   const problem = getProblem(interview.problemKey);
-  if (!problem) return;
+  if (!problem) return null;
 
   if (interview.status === 'complete') {
     revalidatePath(`/interview/${interviewId}`);
-    return;
+    return null;
   }
 
   await updateInterview(interviewId, { status: 'evaluating', endedAt: new Date() });
@@ -195,12 +197,16 @@ export async function finishInterview(interviewId: string): Promise<void> {
     durationSeconds,
   });
 
-  await awardXp(interview.mode === 'boss' ? 'boss_cleared' : 'interview_complete', interview.mode === 'boss' ? 250 : 120, interviewId);
+  const reward =
+    interview.mode === 'boss'
+      ? await mintXp('boss_cleared', XP_VALUES.boss_cleared, interviewId)
+      : await mintXp('interview_complete', XP_VALUES.interview_complete, interviewId);
 
   revalidatePath(`/interview/${interviewId}`);
   revalidatePath('/interview');
   revalidatePath('/');
   revalidatePath('/review');
+  return reward;
 }
 
 export async function abandonInterview(interviewId: string): Promise<void> {

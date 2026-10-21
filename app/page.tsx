@@ -2,8 +2,11 @@ import Link from 'next/link';
 import { ArrowUpRight, Flame } from 'lucide-react';
 import { loadDashboard } from '@/lib/learning/dashboard';
 import { CurriculumSpine } from '@/components/dashboard/CurriculumSpine';
+import { NextRep } from '@/components/dashboard/NextRep';
+import { DailyGoalRing } from '@/components/dashboard/DailyGoalRing';
 import { Button, EmptyState, Figure, Meter, Sheet, Tag } from '@/components/ui/primitives';
 import { BAND_LABEL, band } from '@/lib/learning/mastery';
+import { ACHIEVEMENTS, ACHIEVEMENT_ORDER } from '@/lib/learning/achievements';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,12 +30,26 @@ export default async function Dashboard() {
           <h1 className="text-3xl font-semibold tracking-tight">Today</h1>
           <p className="mt-2 max-w-[58ch] text-sm text-[var(--text-dim)]">{d.pace.message}</p>
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+          <DailyGoalRing
+            minutes={d.daily.minutesToday}
+            goalMinutes={d.daily.goalMinutes}
+            reps={d.daily.repsToday}
+            repTarget={d.daily.repTarget}
+          />
           <Figure
             value={d.streak.current}
-            label={d.streak.current === 1 ? 'day streak' : 'day streak'}
+            label="day streak"
             tone={d.streak.current > 0 ? 'brass' : 'neutral'}
-            sub={d.streak.longest > d.streak.current ? `best ${d.streak.longest}` : undefined}
+            sub={
+              !d.streak.activeToday && d.streak.current > 0
+                ? 'study today to keep it'
+                : d.streak.activeToday && d.streak.current > 0
+                  ? 'extended today'
+                  : d.streak.longest > d.streak.current
+                    ? `best ${d.streak.longest}`
+                    : undefined
+            }
           />
           <Figure value={`L${d.xp.level}`} label="level" sub={`${d.xp.into}/${d.xp.needed} XP`} />
           <Figure
@@ -42,6 +59,14 @@ export default async function Dashboard() {
           />
         </div>
       </header>
+
+      {/* The one concrete, finishable thing to do right now — the near finish
+          line that beats "someday I'll be a great engineer". */}
+      {!nothingWritten ? (
+        <section className="mt-8">
+          <NextRep rep={d.nextRep} focusMinutes={d.focusTimerMinutes} />
+        </section>
+      ) : null}
 
       {/* What should I do today — the page's first job. */}
       <section className="mt-8">
@@ -205,6 +230,38 @@ export default async function Dashboard() {
           </Sheet>
         </section>
       </div>
+
+      {/* Achievements — unlocked for reasoning actions, never for page views. */}
+      <section className="mt-10">
+        <div className="mb-4 flex items-baseline justify-between gap-4">
+          <h2 className="text-lg font-semibold tracking-tight">Achievements</h2>
+          <Link href="/achievements" className="text-sm text-signal-400 hover:underline">
+            {d.achievements.length}/{ACHIEVEMENT_ORDER.length} unlocked
+          </Link>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {ACHIEVEMENT_ORDER.map((code) => {
+            const a = ACHIEVEMENTS[code];
+            const unlocked = d.achievements.includes(code);
+            return (
+              <span
+                key={code}
+                title={`${a.name} — ${unlocked ? a.description : a.criteria}`}
+                className={`inline-flex items-center gap-1.5 rounded-[3px] border px-2 py-1 text-xs ${
+                  unlocked
+                    ? 'border-brass-500/50 text-[var(--text)]'
+                    : 'border-[var(--rule)] text-[var(--text-faint)] opacity-60'
+                }`}
+              >
+                <span aria-hidden className={unlocked ? '' : 'grayscale'}>
+                  {a.icon}
+                </span>
+                {a.name}
+              </span>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

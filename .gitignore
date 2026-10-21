@@ -20,3 +20,6 @@ coverage/
 
 # E2E saved session (contains a session cookie)
 tests/e2e/.auth/
+.neon
+.claude/
+skills-lock.json

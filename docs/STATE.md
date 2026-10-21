@@ -4,14 +4,17 @@ Read this first. Resume from `NEXT`. Never revisit anything under Frozen
 decisions.
 
     LAST_COMPLETED: 16 (V1 verification) + post-V1 multi-user auth
+                    + post-V1 motivation surfaces (rewards + "one rep")
     NEXT: none pending
     STATUS: V1 COMPLETE (npm run verify: 17/17). Post-V1, at the user's
-            direction, added multi-user email+password auth (custom,
-            zero new deps: scrypt + DB sessions + httpOnly cookie). All
-            learner data is now scoped to the logged-in account; real
-            users sign up their own isolated accounts. Every gate green
-            (95 unit, 13 E2E incl. auth). This reverses frozen decision
-            4 — see decision 13.
+            direction, added (a) multi-user email+password auth (custom,
+            zero new deps: scrypt + DB sessions + httpOnly cookie) and
+            (b) motivation surfaces to beat temporal discounting —
+            immediate visible XP/level/streak rewards, wired achievements,
+            and a "one rep" focus loop (hero action + optional timer +
+            daily rep target). XP is still earned only for real retrieval.
+            All learner data is scoped to the logged-in account. Every
+            gate green (106 unit, 16 E2E). See decisions 13 and 14.
 
     ## Content progress
     **89 of 89 lessons Complete — ALL CURRICULUM CONTENT AUTHORED.**
@@ -65,8 +68,8 @@ progress and completion rules to be real rather than stubbed.
 | --- | --- |
 | `npm run lint` | PASS |
 | `npm run typecheck` | PASS |
-| `npm test` | PASS — 95 unit tests, 5 files |
-| `npm run test:e2e` | PASS — 11 Playwright tests |
+| `npm test` | PASS — 106 unit tests, 6 files |
+| `npm run test:e2e` | PASS — 16 Playwright tests |
 | `npm run build` | PASS |
 | `npm run content:validate` | PASS — 89 complete, 0 planned |
 | `npm run db:migrate` (twice, from empty) | PASS |
@@ -140,6 +143,32 @@ Append-only. Each entry is settled.
     `tests/e2e/global-setup.ts` (storageState); `tests/e2e/auth.spec.ts` covers
     protection/signup/logout. Google OAuth etc. are the natural next add (the
     Credentials shape leaves room) but are not built.
+14. **Motivation surfaces — visible rewards + the "one rep" loop (post-V1,
+    user-directed).** The user reported losing interest after a few minutes
+    (temporal discounting). The fix keeps V1's anti-dopamine *substance* — XP is
+    still minted only for real retrieval/reasoning, never for reading, no login
+    bonus — but makes the payoff *immediate and visible* and shrinks the finish
+    line. (a) `mintXp` (`db/repo/progress.ts`) wraps the XP insert and returns a
+    `RewardPayload` (`lib/learning/reward.ts`) with the new level, streak and any
+    unlocked achievements; the five award-site actions thread it to the client,
+    where `RewardProvider` (`components/reward/`) shows an animated toast — a quiet
+    XP chip for the ordinary case, a louder moment for a level-up / streak
+    milestone / achievement. Flashcards (2 XP each) surface only *significant*
+    payloads. (b) The `achievements` table is now wired: definitions +
+    mechanical, XP-ledger-derived unlock conditions live in
+    `lib/learning/achievements.ts` (pure, unit-tested), evaluated inside `mintXp`;
+    surfaced on the dashboard strip and `/achievements`. (c) The "one rep" loop —
+    a single concrete next action promoted into a hero (`components/dashboard/
+    NextRep.tsx`), startable untimed or with a `FocusProvider`/`FocusTimer`
+    countdown (sessionStorage, survives navigation); a daily-goal ring and a
+    finite "reps today" tally (`repsOn` in `lib/learning/xp.ts`, derived from the
+    XP ledger — a flashcard session collapses to one rep). (d) Four `user_settings`
+    columns (migration `0003`) make it tunable: `reward_animations`,
+    `sound_enabled` (default off), `daily_rep_target` (3), `focus_timer_minutes`
+    (20); all motion also respects `prefers-reduced-motion`. Zero new deps
+    (framer-motion was already present). This revises decision 11's "stat tiles are
+    not the centrepiece" only by *adding* a reward layer; the curriculum spine is
+    still the centre.
 
 ## Open issues for next run
 

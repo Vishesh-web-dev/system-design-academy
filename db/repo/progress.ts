@@ -2,6 +2,16 @@ import { randomUUID } from 'node:crypto';
 import { and, asc, desc, eq, gte, sql } from 'drizzle-orm';
 import { getDb, schema } from '../client';
 import { requireLearnerId } from '@/lib/auth/session';
+import {
+  XP_REASON,
+  XP_VALUES,
+  currentStreak,
+  levelFromXp,
+  toDailyActivity,
+  type XpKind,
+} from '@/lib/learning/xp';
+import { ACHIEVEMENTS, evaluateAchievements } from '@/lib/learning/achievements';
+import type { RewardPayload } from '@/lib/learning/reward';
 
 export type LessonProgress = typeof schema.lessonProgress.$inferSelect;
 export type LessonRow = typeof schema.lessons.$inferSelect;
@@ -100,7 +110,9 @@ export async function addTimeSpent(lessonId: string, seconds: number): Promise<v
  * eligibility; this only records the decision. Re-completing is a no-op, so a
  * double-submitted form cannot award XP twice.
  */
-export async function completeLesson(lessonId: string): Promise<{ alreadyComplete: boolean }> {
+export async function completeLesson(
+  lessonId: string,
+): Promise<{ alreadyComplete: boolean; reward?: RewardPayload }> {
   const db = getDb();
   const existing = await getProgress(lessonId);
   if (existing?.status === 'completed') return { alreadyComplete: true };
@@ -121,8 +133,8 @@ export async function completeLesson(lessonId: string): Promise<{ alreadyComplet
       set: { status: 'completed', completedAt: now, lastViewedAt: now },
     });
 
-  await awardXp('lesson_complete', 40, lessonId);
-  return { alreadyComplete: false };
+  const reward = await mintXp('lesson_complete', XP_VALUES.lesson_complete, lessonId);
+  return { alreadyComplete: false, reward };
 }
 
 export async function reopenLesson(lessonId: string): Promise<void> {
@@ -139,16 +151,8 @@ export async function reopenLesson(lessonId: string): Promise<void> {
 
 // ── XP ──────────────────────────────────────────────────────────────────────
 
-export type XpKind =
-  | 'lesson_complete'
-  | 'quiz_pass'
-  | 'quiz_perfect'
-  | 'exercise_submit'
-  | 'flashcard_review'
-  | 'review_cleared'
-  | 'interview_complete'
-  | 'boss_cleared';
-
+/** Low-level insert into the XP ledger. Prefer `mintXp`, which also returns the
+ *  reward feedback the UI needs; this stays for callers that do not surface it. */
 export async function awardXp(kind: XpKind, amount: number, ref?: string): Promise<void> {
   await getDb().insert(schema.xpEvents).values({
     id: randomUUID(),
@@ -157,6 +161,72 @@ export async function awardXp(kind: XpKind, amount: number, ref?: string): Promi
     amount,
     ref: ref ?? null,
   });
+}
+
+/**
+ * Mints XP and returns everything the client needs to reward the learner
+ * immediately: the amount, the new level, the new streak, and any achievements
+ * this action just unlocked. The anti-dopamine rule is unchanged — callers mint
+ * only for genuine retrieval/reasoning — this just makes the payoff visible
+ * instead of silent (docs/STATE.md → frozen decision 14).
+ */
+export async function mintXp(kind: XpKind, amount: number, ref?: string): Promise<RewardPayload> {
+  const db = getDb();
+  const learnerId = await requireLearnerId();
+  const now = new Date();
+
+  // Snapshot the ledger before the new event so level and streak deltas are exact.
+  const before = await db
+    .select({
+      kind: schema.xpEvents.kind,
+      amount: schema.xpEvents.amount,
+      createdAt: schema.xpEvents.createdAt,
+    })
+    .from(schema.xpEvents)
+    .where(eq(schema.xpEvents.learnerId, learnerId));
+
+  await db.insert(schema.xpEvents).values({ id: randomUUID(), learnerId, kind, amount, ref: ref ?? null, createdAt: now });
+
+  const after = [...before, { kind, amount, createdAt: now }];
+  const totalBefore = before.reduce((a, e) => a + e.amount, 0);
+  const totalAfter = totalBefore + amount;
+  const streakBefore = currentStreak(toDailyActivity(before), now);
+  const streakAfter = currentStreak(toDailyActivity(after), now);
+
+  // Diff newly-satisfied achievements against what is already unlocked.
+  const existing = await db
+    .select({ code: schema.achievements.code })
+    .from(schema.achievements)
+    .where(eq(schema.achievements.learnerId, learnerId));
+  const have = new Set(existing.map((r) => r.code));
+  const unlocked = evaluateAchievements({ events: after, streak: streakAfter }).filter((c) => !have.has(c));
+  if (unlocked.length) {
+    await db
+      .insert(schema.achievements)
+      .values(unlocked.map((code) => ({ learnerId, code, unlockedAt: now })))
+      .onConflictDoNothing();
+  }
+
+  return {
+    xpAwarded: amount,
+    reason: XP_REASON[kind],
+    newTotalXp: totalAfter,
+    levelBefore: levelFromXp(totalBefore).level,
+    levelAfter: levelFromXp(totalAfter).level,
+    streakBefore,
+    streakAfter,
+    unlockedAchievements: unlocked.map((code) => ({ code, ...ACHIEVEMENTS[code] })),
+  };
+}
+
+/** Achievement codes this learner has unlocked, newest first. */
+export async function listAchievements(): Promise<Array<{ code: string; unlockedAt: Date }>> {
+  const learnerId = await requireLearnerId();
+  return getDb()
+    .select({ code: schema.achievements.code, unlockedAt: schema.achievements.unlockedAt })
+    .from(schema.achievements)
+    .where(eq(schema.achievements.learnerId, learnerId))
+    .orderBy(desc(schema.achievements.unlockedAt));
 }
 
 export async function minutesStudiedOn(day: Date): Promise<number> {

@@ -3,7 +3,9 @@
 import { z } from 'zod';
 import { ensureLearner } from '@/db/repo/learner';
 import { exerciseExists, hasPriorAttempt, saveAttempt } from '@/db/repo/exercises';
-import { awardXp } from '@/db/repo/progress';
+import { mintXp } from '@/db/repo/progress';
+import { XP_VALUES } from '@/lib/learning/xp';
+import type { RewardPayload } from '@/lib/learning/reward';
 
 const Input = z.object({
   exerciseId: z.string().min(1),
@@ -12,7 +14,7 @@ const Input = z.object({
   selfRating: z.number().int().min(1).max(5).nullable(),
 });
 
-export type SubmitResult = { ok: true } | { ok: false; error: string };
+export type SubmitResult = { ok: true; reward?: RewardPayload } | { ok: false; error: string };
 
 export async function submitExercise(input: unknown): Promise<SubmitResult> {
   const parsed = Input.safeParse(input);
@@ -37,7 +39,7 @@ export async function submitExercise(input: unknown): Promise<SubmitResult> {
   // anything (docs/PRODUCT.md → Gamification rules).
   const isFirst = !(await hasPriorAttempt(exerciseId));
   await saveAttempt({ exerciseId, response, rubricHits, selfRating });
-  if (isFirst) await awardXp('exercise_submit', 35, exerciseId);
+  const reward = isFirst ? await mintXp('exercise_submit', XP_VALUES.exercise_submit, exerciseId) : undefined;
 
-  return { ok: true };
+  return { ok: true, reward };
 }

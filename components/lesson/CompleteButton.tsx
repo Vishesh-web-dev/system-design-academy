@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { CircleCheck } from 'lucide-react';
 import { Button } from '../ui/primitives';
+import { useReward } from '@/components/reward/RewardProvider';
 import { markLessonComplete, markLessonIncomplete } from '@/app/lesson/actions';
 
 /**
@@ -23,6 +24,7 @@ export function CompleteButton({
   const [pending, startTransition] = useTransition();
   const [message, setMessage] = useState<string[] | null>(null);
   const router = useRouter();
+  const reward = useReward();
 
   if (complete) {
     return (
@@ -59,6 +61,7 @@ export function CompleteButton({
             const result = await markLessonComplete(lessonId);
             if (result.ok) {
               setMessage(null);
+              reward.show(result.reward);
               router.refresh();
             } else {
               setMessage(result.missing);
@@ -68,12 +71,17 @@ export function CompleteButton({
       >
         {pending ? 'Saving…' : 'Mark complete'}
       </Button>
-      {(blocked || message) && (
+      {blocked || message ? (
         <ul className="mt-2 space-y-0.5 text-xs text-[var(--text-faint)]">
           {(message ?? blockers).map((m) => (
             <li key={m}>Still needed: {m}</li>
           ))}
         </ul>
+      ) : (
+        <p className="mt-2 flex items-center gap-1.5 text-xs text-signal-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-signal-500 motion-safe:animate-pulse" aria-hidden />
+          Ready — you&apos;ve met the bar.
+        </p>
       )}
     </div>
   );

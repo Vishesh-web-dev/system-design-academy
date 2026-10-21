@@ -146,6 +146,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           lessonId={slug}
           sections={sections}
           initiallySeen={progress?.sectionsSeen ?? []}
+          quizPassed={ratio !== null && ratio >= 0.7}
         />
       </aside>
     </div>
